@@ -1,3 +1,4 @@
+//Users: This table stores information about the application users
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');

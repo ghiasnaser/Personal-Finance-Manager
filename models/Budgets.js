@@ -1,3 +1,4 @@
+//Budgets: This table stores information about the monthly budgets set by users.
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
