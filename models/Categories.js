@@ -1,3 +1,4 @@
+//Categories: This table stores predefined categories for transactions, allowing users to categorize their expenses.
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 

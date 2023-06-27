@@ -1,3 +1,4 @@
+//Accounts: This table stores information about the bank accounts connected by users.
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 

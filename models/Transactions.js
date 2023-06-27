@@ -1,3 +1,4 @@
+//Transactions: This table stores details about individual financial transactions.
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
