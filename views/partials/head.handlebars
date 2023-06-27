@@ -1,0 +1,40 @@
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script
+    src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp'
+  ></script>
+  <script
+    src='https://kit.fontawesome.com/2773baef5c.js'
+    crossorigin='anonymous'
+  ></script>
+  {{! prettier-ignore}}
+  <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d'
+              'light-blue': '#85d7ff',
+              cyan: '#79ffe1',
+            },
+          },
+        }
+      }
+    </script>
+  {{! prettier-ignore}}
+  <style type='text/tailwindcss'>
+    
+      .overwrite { 
+        color: red;
+      }
+
+      @layer utilities { 
+        .content-auto {
+          content-visibility: auto; 
+        }
+      }
+    </style>
+  <title>Fi-Glance</title>
+</head>
