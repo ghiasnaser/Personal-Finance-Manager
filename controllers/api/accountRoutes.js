@@ -1,7 +1,8 @@
 const accountRouter = require('express').Router();
 const { Account, Transactions } = require('../../models');
-const withAuth = require('../../middleware/auth');
+const { withAuth } = require('../../middleware/auth');
 
+// Account Router for the base URL: /api/accounts
 accountRouter
   .route('/')
   // Getting all accounts for a user
@@ -17,7 +18,7 @@ accountRouter
     );
     res.json(plainAccounts);
   })
-  // Creating a new account
+  // Creating a new account for a user
   .post(withAuth, async (req, res) => {
     try {
       const newAccount = await Account.create({
@@ -31,8 +32,22 @@ accountRouter
       res.status(400).json({ message: 'Could Not Create Account', error: err });
     }
   });
+
+// Account Router for the base URL: /api/accounts/:id
 accountRouter
   .route('/:id')
+  // Getting a single account
+  .get(withAuth, async (req, res) => {
+    try {
+      const account = await Account.findByPk(req.params.id, {
+        include: { model: Transactions },
+      });
+      res.status(200).json({ message: 'Account Found', data: account });
+    } catch (err) {
+      res.status(400).json({ message: 'Could Not Find Account', error: err });
+    }
+  })
+  // Updating a single account for a user
   .put(withAuth, async (req, res) => {
     try {
       const updatedAccount = await Account.update(req.body, {
@@ -45,6 +60,7 @@ accountRouter
       res.status(400).json({ message: 'Could Not Update Account', error: err });
     }
   })
+  // Deleting a single account for a user
   .delete(withAuth, async (req, res) => {
     try {
       const deletedAccount = await Account.destroy({
