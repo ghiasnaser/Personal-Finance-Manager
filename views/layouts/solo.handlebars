@@ -1,0 +1,17 @@
+<html class='h-full bg-white' lang='en'>
+  {{> head}}
+  <body class='h-full'>
+    <div
+      title='Go To Home'
+      class='footer-icons absolute top-2 left-2 z-50 drop-shadow-lg'
+    >
+      <a class='relative m-auto' href='/'>
+        {{> fa-icon icon='arrow-left' size='2xl' color='black' style='solid' class='m-auto'}}
+        <p
+          class='absolute w-max top-1/2 -translate-y-1/2 translate-x-1/2 font-bold underline underline-offset-2 hover:underline-offset-4'
+        >Go To Home</p>
+      </a>
+    </div>
+    {{{body}}}
+  </body>
+</html>
