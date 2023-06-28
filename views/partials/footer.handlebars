@@ -1,99 +1,66 @@
-<footer class='max-w-screen-xl mx-auto'>
-  <hr />
-  <div
-    class='flex gap-3 flex-col justify-between items-center px-10 my-2 sm:flex-row'
-  >
-    <div class='text-center max-w-[300px]'>
+<footer class='max-w-screen-2xl mx-auto'>
+  <hr class="mx-3"/>
+  <div class='flex-center gap-3 flex-row flex-wrap px-10 my-2'>
+    <div class='text-center flex-grow sm:max-w-[300px]'>
       <p class='font-bold text-xl'>Fi-Glance.</p>
       <p>All Your Banks in one place. Be smarter with you finances with
         Fi-Glance.</p>
     </div>
-    <nav class='grid grid-flow-col w-full gap-3 items-start'>
-
+    <nav class='footer-links'>
       <ul>
         <li class='font-bold text-lg'>Dashboard</li>
+        <li><a class='footer-link' href='/dashboard'>Your Dashboard</a></li>
         <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/dashboard'
-          >Your Dashboard</a></li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
+            class='footer-link'
             href='/dashboard/recurring'
-          >Recurring Payments</a></li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/dashboard/overview'
-          >Overview</a></li>
+          >Recurring</a></li>
+        <li><a class='footer-link' href='/dashboard/overview'>Overview</a></li>
       </ul>
       <ul>
         <li class='font-bold text-lg'>Legal</li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/legal/privacy'
-          >Privacy</a></li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/legal/terms'
-          >Terms of Service</a></li>
+        <li><a class='footer-link' href='/legal/privacy'>Privacy</a></li>
+        <li><a class='footer-link' href='/legal/terms'>Terms of Service</a></li>
       </ul>
       <ul>
         <li class='font-bold text-lg'>Contact</li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/about'
-          >About</a></li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/team'
-          >Team</a></li>
-        <li><a
-            class='underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal'
-            href='/support'
-          >Support</a></li>
+        <li><a class='footer-link' href='/about'>About</a></li>
+        <li><a class='footer-link' href='/team'>Team</a></li>
+        <li><a class='footer-link' href='/support'>Support</a></li>
       </ul>
     </nav>
   </div>
   <hr class='mx-3' />
-  <div class='flex justify-between items-center px-5'>
+  <div class='flex-between px-5'>
     <small class='text-gray-700 font-medium leading-snug'>© 2023 Fi-Glance. All
       rights reserved.</small>
-    <div class='px-2 py-2.5 justify-center items-center gap-4 flex'>
+    <div class='flex-center px-2 py-2.5 gap-4'>
 
-      <div class='justify-center items-center gap-2.5 flex'>
-        <div class='w-12 h-12 bg-white rounded-full shadow flex justify-center'>
-          <a
-            class='m-auto'
-            href='https://github.com/ghiasnaser/Personal-Finance-Manager'
-          >
-            <i class='fa-brands fa-github fa-2xl' style='color: gray;'></i>
-          </a>
-        </div>
+      <div class='footer-icons'>
+        <a
+          class='m-auto'
+          target="_blank"
+          href='https://github.com/ghiasnaser/Personal-Finance-Manager'
+        >
+          {{> fa-icon icon='github' size='2xl' color='gray' style='brands' }}
+        </a>
       </div>
-      <div class='justify-center items-center gap-2.5 flex'>
-        <div class='w-12 h-12 bg-white rounded-full shadow flex justify-center'>
-          <a
-            class='m-auto'
-            href='https://github.com/ghiasnaser/Personal-Finance-Manager'
-          >
-            <i
-              class='m-auto fa-brands fa-instagram fa-2xl'
-              style='color: gray;'
-            ></i>
-          </a>
-        </div>
+      <div class='footer-icons'>
+        <a
+          class='m-auto'
+          target="_blank"
+          href='https://github.com/ghiasnaser/Personal-Finance-Manager'
+        >
+          {{> fa-icon icon='instagram' size='2xl' color='gray' style='brands' class='m-auto' }}
+        </a>
       </div>
-      <div class='justify-center items-center gap-2.5 flex'>
-        <div class='w-12 h-12 bg-white rounded-full shadow flex justify-center'>
-          <a
-            class='m-auto'
-            href='https://github.com/ghiasnaser/Personal-Finance-Manager'
-          >
-            <i
-              class='m-auto fa-brands fa-twitter fa-2xl'
-              style='color: gray;'
-            ></i>
-          </a>
-        </div>
+      <div class='footer-icons'>
+        <a
+          class='m-auto'
+          target='_blank'
+          href='https://github.com/ghiasnaser/Personal-Finance-Manager'
+        >
+          {{> fa-icon icon='twitter' size='2xl' color='gray' style='brands' class='m-auto'}}
+        </a>
       </div>
 
     </div>

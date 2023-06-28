@@ -2,9 +2,9 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
   <script src='https://cdn.tailwindcss.com'></script>
-  <script
-    src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp'
-  ></script>
+  {{! <script
+    src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio'
+  ></script> }}
   <script
     src='https://kit.fontawesome.com/2773baef5c.js'
     crossorigin='anonymous'
@@ -12,10 +12,11 @@
   {{! prettier-ignore}}
   <script>
       tailwind.config = {
+        content: ['./views/**/*.{html,js,hanblebars}', './public/**/*.{html,js,css}'],
         theme: {
           extend: {
             colors: {
-              clifford: '#da373d'
+              clifford: '#da373d',
               'light-blue': '#85d7ff',
               cyan: '#79ffe1',
             },
@@ -23,16 +24,75 @@
         }
       }
     </script>
+
   {{! prettier-ignore}}
-  <style type='text/tailwindcss'>
-    
-      .overwrite { 
-        color: red;
-      }
+  <style type='text/tailwindcss' >
 
       @layer utilities { 
         .content-auto {
           content-visibility: auto; 
+        }
+      }
+      
+      /*  Tailwind UI Components | Use These class names to style your components with all the styles after the `@apply` keyword. */
+      @layer components {
+        .flex-center {
+          @apply flex justify-center items-center;
+        }
+
+        .flex-between {
+          @apply flex justify-between items-center;
+        }
+
+        .focus-ring {
+          @apply focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800;
+        }
+
+        .btn-primary {
+          @apply bg-blue-500 text-white font-bold py-1 px-2 rounded hover:bg-blue-700;
+        }
+
+        .btn-danger {
+          @apply bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-red-700;
+        }
+        .btn-success {
+          @apply bg-green-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700;
+        }
+        .btn-secondary {
+          @apply bg-gray-500 text-white font-bold py-1 px-2 rounded hover:bg-gray-700;
+        }
+        .btn-info {
+          @apply bg-indigo-500 text-white font-bold py-1 px-2 rounded hover:bg-indigo-700;
+        }
+        .btn-warning {
+          @apply bg-yellow-500 text-white font-bold py-1 px-2 rounded hvoer:bg-yellow-700;
+        }
+
+        .mobile-nav-link {
+          @apply text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium;
+        }
+
+        .mobile-nav-link-active {
+          @apply bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium;
+        }
+
+        .profile-dropdown-links {
+          @apply block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100;
+        }
+
+        .profile-dropdown-links-disabled {
+          @apply block px-2 py-2 text-sm bg-slate-200 text-gray-500 pointer-events-none;
+        }
+
+        .footer-link {
+          @apply underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal;
+        }
+        .footer-links {
+          @apply grid grid-flow-row flex-wrap flex-grow gap-3 justify-evenly sm:grid-flow-col;
+        }
+
+        .footer-icons {
+          @apply w-12 h-12 bg-white rounded-full shadow flex justify-center
         }
       }
     </style>
