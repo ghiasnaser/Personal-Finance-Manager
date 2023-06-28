@@ -12,6 +12,14 @@ Account.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    account_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    balance: {
+      type: DataTypes.JSON,
+      allowNull: false,
+    },
     account_name: {
         type: DataTypes.STRING,
         allowNull: false,
