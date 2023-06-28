@@ -1,9 +1,11 @@
 const router = require('express').Router();
 
+router.use('/api', require('./api'));
+
 router.use(require('./auth'));
 
 router.use('/dashboard', async (req, res) => {
-  res.render('dashboard')
+  res.render('dashboard');
 });
 
 router.use('^/$|index(.html)?', async (req, res) => {
