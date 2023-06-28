@@ -1,63 +1,77 @@
 const User = require('./User');
 const Account = require('./Accounts');
-const Budget=require('./Budgets');
-const Category=require('./Categories');
-const Expenses=require('./Expenses');
-const Goal=require('./Goals');
-const Transaction=require('./Transactions');
+const Budget = require('./Budgets');
+const Category = require('./Categories');
+const Expenses = require('./Expenses');
+const Goal = require('./Goals');
+const Transaction = require('./Transactions');
 
 // User - Account relation is one to many
 User.hasMany(Account, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 Account.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
 });
 
 // Account - Transaction relation is one to many
-Account.hasMany(Transaction,{
+Account.hasMany(Transaction, {
   foreignKey: 'account_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
-Transaction.belongsTo(Account,{
-  foreignKey: 'account_id'
+Transaction.belongsTo(Account, {
+  foreignKey: 'account_id',
 });
 
 // Category - Transaction relation is one to many
-Category.hasMany(Transaction,{
+Category.hasMany(Transaction, {
   foreignKey: 'category_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
-Transaction.belongsTo(Category,{
-  foreignKey:'category_id',
+Transaction.belongsTo(Category, {
+  foreignKey: 'category_id',
 });
 
 // User - Budget relation is one to many
-User.hasMany(Budget,{
+User.hasMany(Budget, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
-Budget.belongsTo(User,{
-  foreignKey:'user_id',
+Budget.belongsTo(User, {
+  foreignKey: 'user_id',
 });
 
 // Budget - Transaction relation is many to many
-Budget.hasMany(Transaction,{ through: Expenses, foreignKey: 'budget_id' });
-Transaction.hasMany(Budget,{ through: Expenses, foreignKey: 'transaction_id' });
+Budget.belongsToMany(Transaction, {
+  through: Expenses,
+  foreignKey: 'budget_id',
+});
+Transaction.belongsToMany(Budget, {
+  through: Expenses,
+  foreignKey: 'transaction_id',
+});
 
 // User - Budget relation is one to many
-User.hasMany(Goal,{
+User.hasMany(Goal, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
-Goal.belongsTo(User,{
-  foreignKey:'user_id',
+Goal.belongsTo(User, {
+  foreignKey: 'user_id',
 });
 
-module.exports = { User, Account, Budget, Category, Expenses, Goal, Transaction};
+module.exports = {
+  User,
+  Account,
+  Budget,
+  Category,
+  Expenses,
+  Goal,
+  Transaction,
+};
