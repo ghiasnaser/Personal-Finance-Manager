@@ -1,14 +1,20 @@
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+  {{! Tailwind CSS CDN }}
   <script src='https://cdn.tailwindcss.com'></script>
-  {{! <script
-    src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio'
-  ></script> }}
+
+  {{! FontAwesome Icons Kit }}
   <script
     src='https://kit.fontawesome.com/2773baef5c.js'
     crossorigin='anonymous'
   ></script>
+
+  {{! Chart.js jsDelivr CDN }}
+  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+
+  {{! Tailwind Config }}
   {{! prettier-ignore}}
   <script>
       tailwind.config = {
@@ -25,12 +31,25 @@
       }
     </script>
 
+  {{! Tailwind Styles }}
   {{! prettier-ignore}}
   <style type='text/tailwindcss' >
 
       @layer utilities { 
         .content-auto {
           content-visibility: auto; 
+        }
+
+        .gradientBg-light {
+          background-image: url(/images/hero-bg-light.svg);
+          -webkit-mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%), linear-gradient(90deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%);
+          mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%), linear-gradient(90deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%);
+
+        }
+        .gradientBg {
+          background-image: url(/images/hero-bg.svg);
+          -webkit-mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f6 92%);
+          mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f6 92%);
         }
       }
       
@@ -42,6 +61,10 @@
 
         .flex-between {
           @apply flex justify-between items-center;
+        }
+
+        .link {
+          @apply px-3 py-2 rounded-md underline underline-offset-2 hover:underline-offset-4 text-slate-600 hover:text-slate-700 hover:bg-slate-200/60;
         }
 
         .focus-ring {
