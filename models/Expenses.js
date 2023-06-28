@@ -1,5 +1,5 @@
 // Expenses: This table tracks the expenses associated with a specific budget.
- const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Expenses extends Model {}
