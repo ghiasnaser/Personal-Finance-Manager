@@ -55,6 +55,29 @@
       
       /*  Tailwind UI Components | Use These class names to style your components with all the styles after the `@apply` keyword. */
       @layer components {
+        .text-secondary {
+          @apply mt-6 mb-6 text-lg leading-8 text-gray-600;
+        }
+        .text-secondary-sm {
+          @apply space-y-8 text-base leading-7 text-gray-600;
+        }
+
+        .heading-1 {
+          @apply mt-2 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl;
+        }
+        .heading-2 {
+          @apply mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;
+        }
+        .heading-3 {
+          @apply mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;
+        }
+
+        .heading-info-1 {
+          @apply mt-2 text-3xl font-bold tracking-tight text-indigo-500 sm:text-5xl;
+        }
+        .heading-info-2 {
+          @apply mt-2 text-2xl font-bold tracking-tight text-indigo-500 sm:text-3xl;
+        }
         .flex-center {
           @apply flex justify-center items-center;
         }
@@ -117,6 +140,26 @@
         .footer-icons {
           @apply w-12 h-12 bg-white rounded-full shadow flex justify-center
         }
+
+        .home-section {
+          @apply mb-12 m-auto grid items-center justify-between gap-10 max-w-screen-xl px-4 sm:grid-flow-col sm:gap-52 sm:px-20;
+        }
+
+        .home-section-gradient {
+          @apply absolute top-0 -z-10 rounded-full -left-[15%] aspect-square h-full bg-gradient-to-tl from-purple-600 via-purple-600 to-rose-600;
+        }
+
+        .section-icon-sm {
+          @apply absolute left-1 top-1 text-indigo-600;
+        }
+        .section-icon-md {
+          @apply absolute left-1 top-1 text-indigo-600 text-2xl;
+        }
+
+        .section-icon-lg {
+          @apply absolute -left-1 top-2 text-indigo-600 text-4xl;
+        }
+
       }
     </style>
   <title>Fi-Glance</title>
