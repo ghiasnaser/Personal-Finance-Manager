@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { authWall } = require('../middleware/auth');
 
 // Use authWall middleware to prevent access to route and renders a page that requests the user to login or sign up
-router.use(authWall); // Comment this out to disable authWall and test out pages
+// router.use(authWall); // Comment this out to disable authWall and test out pages
 
 // Dashboard subpages
 

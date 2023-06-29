@@ -1,6 +1,6 @@
 <nav class='bg-gray-800 shadow-md shadow-gray-700/40'>
   <div class='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
-    <div class='relative flex-between h-16'>
+    <div class='flex-between relative h-16'>
       <div class='absolute inset-y-0 left-0 flex items-center sm:hidden'>
         <!-- Mobile menu button-->
         <button
@@ -14,19 +14,17 @@
           <!-- Icon When mobile menu is closed -->
           <i
             aria-hidden='true'
-            class='block px-1 py-2 fa-solid fa-bars fa-lg'
+            class='fa-solid fa-bars fa-lg block px-1 py-2'
           ></i>
           <!-- Icon When mobile menu is open -->
           <i
             aria-hidden='false'
-            class='block px-1 py-2 fa-solid fa-xmark fa-lg'
+            class='fa-solid fa-xmark fa-lg block px-1 py-2'
           ></i>
 
         </button>
       </div>
-      <div
-        class='flex-center flex-1 sm:items-stretch sm:justify-start'
-      >
+      <div class='flex-center flex-1 sm:items-stretch sm:justify-start'>
         <div class='flex flex-shrink-0 items-center'>
           {{> logo}}
         </div>
@@ -37,13 +35,13 @@
               {{#if active}}
                 <a
                   href='{{href}}'
-                  class='bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium'
+                  class='rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white'
                   aria-current='page'
                 >{{text}}</a>
               {{else}}
                 <a
                   href='{{href}}'
-                  class='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'
+                  class='rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white'
                 >{{text}}</a>
               {{/if}}
             {{/each}}
@@ -55,7 +53,7 @@
       >
         <button
           type='button'
-          class='rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus-ring'
+          class='focus-ring rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white'
         >
           <span class='sr-only'>View notifications</span>
           <i class='fa-regular fa-bell fa-lg'></i>
@@ -67,7 +65,7 @@
             <div>
               <button
                 type='button'
-                class='flex rounded-full bg-gray-800 text-sm focus-ring'
+                class='focus-ring flex rounded-full bg-gray-800 text-sm'
                 id='user-menu-button'
                 aria-expanded='false'
                 aria-haspopup='true'
@@ -81,11 +79,11 @@
                   />
                 {{else}}
                   <div
-                    class='flex-center p-2 w-10 h-10 rounded-full border border-gray-400'
+                    class='flex-center h-10 w-10 rounded-full border border-gray-400 p-2'
                   >
 
                     <i
-                      class='text-gray-500 hover:text-gray-400 fa-solid fa-user fa-xl'
+                      class='fa-solid fa-user fa-xl text-gray-500 hover:text-gray-400'
                     ></i>
                   </div>
                 {{/if}}
@@ -126,7 +124,7 @@
         {{else}}
           <a
             href='/login'
-            class='text-gray-300 rounded-md px-3 py-2 text-sm font-medium hover:text-white hover:bg-gray-700'
+            class='rounded-md px-3 py-2 ml-3 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white'
           >Login &rightarrow;</a>
         {{/if}}
 
