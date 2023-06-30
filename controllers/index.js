@@ -11,6 +11,7 @@ router.use('/dashboard', require('./dashboard'));
 
 // Setting up the home route
 router.use('^/$|index(.html)?', async (req, res) => {
+  console.log(req.session);
   res.render('home');
 });
 

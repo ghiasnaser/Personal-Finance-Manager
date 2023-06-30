@@ -24,6 +24,8 @@ const hbsMiddleware = (req, res, next) => {
   });
   //Setting the links variable to be used in the hbs templates
   res.locals.links = links;
+  res.locals.user = req.session.user;
+  res.locals.loggedIn = req.session.loggedIn;
   next();
 };
 

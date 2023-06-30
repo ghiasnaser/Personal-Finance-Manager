@@ -7,7 +7,7 @@ userRouter.route('/login').post(async (req, res) => {
       where: { email: req.body.email },
     });
     if (!userData) {
-      res.status(400).json({ message: 'Incorrect Email or Password' });
+      res.status(400).json({ message: 'Incorrect Email' });
       return;
     }
     const validPassword = await userData.checkPassword(req.body.password);
@@ -38,6 +38,7 @@ userRouter.route('/logout').post(async (req, res) => {
 });
 
 userRouter.route('/sign-up').post(async (req, res) => {
+  console.log(req.body);
   try {
     const newUser = await User.create(req.body);
     req.session.save(() => {
