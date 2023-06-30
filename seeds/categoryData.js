@@ -1,4 +1,6 @@
-[
+const { Category } = require('../models');
+
+const categoryData = [
     {
         "name": "Dining out"
     },
@@ -18,3 +20,7 @@
         "name": "Coffee Takeout"
     }
 ]
+
+const seedCategories = async () => await Category.bulkCreate(categoryData);
+
+module.exports = seedCategories;

@@ -1,4 +1,6 @@
-[
+const { Account } = require('../models');
+
+const accountData = [
     {
         "account_name": "Bank of America",
         "account_type": "Checking",
@@ -31,3 +33,7 @@
     }
 
 ]
+
+const seedAccounts = async () => await Account.bulkCreate(accountData);
+
+module.exports = seedAccounts;
