@@ -2,6 +2,8 @@ const apiRouter = require('express').Router();
 
 // Setting up the API routes
 
+apiRouter.use('/plaid', require('./plaid.js'))
+
 // Adding User Routes to : /api/users
 apiRouter.use('/users', require('./userRoutes.js'));
 
