@@ -18,10 +18,13 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
+// Middleware that sets the variables for the hbs templates
 app.use(require('./middleware/hbs'));
 
+// Routes
 app.use(require('./controllers'));
 
+// Syncing the database and starting the server
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>
     console.log(`Now listening on ${process.env.URL}:${PORT}`)

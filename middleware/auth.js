@@ -7,4 +7,13 @@ const withAuth = (req, res, next) => {
   }
 };
 
-module.exports = withAuth;
+// Middleware to prevent access to routes and renders a page that requests the user to login or sign up
+const authWall = (req, res, next) => {
+  if (!req?.session?.loggedIn) {
+    res.render('authWall', { layout: 'solo' });
+    return;
+  }
+  next();
+};
+
+module.exports = { withAuth, authWall };

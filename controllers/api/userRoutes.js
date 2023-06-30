@@ -37,7 +37,7 @@ userRouter.route('/logout').post(async (req, res) => {
   }
 });
 
-userRouter.route('/register').post(async (req, res) => {
+userRouter.route('/sign-up').post(async (req, res) => {
   try {
     const newUser = await User.create(req.body);
     req.session.save(() => {
