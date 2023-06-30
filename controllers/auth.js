@@ -6,7 +6,7 @@ authRouter.get('/sign-up', async (req, res) => {
 });
 
 authRouter.get('/login', async (req, res) => {
-  res.render('form', { layout: 'solo', login: true });
+  res.render('form', { layout: 'solo' });
 });
 
 module.exports = authRouter;
