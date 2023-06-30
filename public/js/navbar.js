@@ -60,3 +60,9 @@ mobileMenuButton.addEventListener(
   'click',
   toggleMenu.bind(null, mobileMenuButton, mobileMenu, true)
 );
+
+userMenuButton.addEventListener('blur', () => {
+  if (userMenuButton.ariaExpanded === 'false') {
+    toggleMenu(userMenuButton, userMenu);
+  }
+});

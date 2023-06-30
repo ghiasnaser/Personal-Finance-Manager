@@ -1,7 +1,56 @@
 <main>
-  <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
-  <div style='width: 800px;'><canvas id='acquisitions'></canvas></div>
-
-  <!-- <script type="module" src="dimensions.js"></script> -->
-  <script type='module' src='/js/chartTest.js'></script>
+  {{> hero}}
+  <section
+    class='mb-12 m-auto grid items-center justify-between gap-10 max-w-screen-xl px-4 sm:grid-flow-col sm:gap-52 sm:px-20'
+  >
+    <div class='max-w-xl'>
+      <p
+        class='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl'
+      >Get Control Over Your Subscriptions</p>
+      <p class='mt-6 mb-6 text-lg leading-8 text-gray-600'>Never pay for an unwanted
+        subscription again. Rocket Money instantly finds and tracks your
+        subscriptions. Your concierge is there when you need them to cancel
+        services so you don’t have to.</p>
+        <a href="/dashboard/recurring" class="link">Learn More &rightarrow;</a>
+    </div>
+    <div class='relative justify-self-center'>
+      <img src='/images/person-1.png' alt='' />
+      <div
+        class='absolute top-0 -z-10 rounded-full -left-[15%] aspect-square h-full bg-gradient-to-tl from-purple-600 via-purple-600 to-rose-600'
+      >
+      </div>
+    </div>
+  </section>
+  <section
+    class='mb-12 m-auto grid items-center justify-between gap-10 max-w-screen-xl px-4 sm:grid-flow-col sm:gap-52 sm:px-20'
+  >
+    <div class='relative order-last justify-self-center sm:order-none'>
+      <img src='/images/person-2.png' alt='' />
+      <div
+        class='absolute top-0 -z-10 rounded-full -left-[15%] aspect-square h-full bg-gradient-to-br from-purple-600 via-purple-600 to-rose-600'
+      >
+      </div>
+    </div>
+    <div class='max-w-xl'>
+      <p
+        class='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl'
+      >Stay On Top Of Your Spending</p>
+      <p class='mt-6 mb-6 text-lg leading-8 text-gray-600'>Get an effortless breakdown of your finances to see where your money is going and how to improve. We’ll notify you of important events that need your attention so you’re never caught off guard.</p>
+        <a href="/dashboard/spending" class="link">Learn More &rightarrow;</a>
+    </div>
+  </section>
+  <section
+    class='mb-12 m-auto grid items-center justify-between gap-10 max-w-screen-xl px-4 sm:grid-flow-col sm:gap-52 sm:px-20'
+  >
+    <div class='max-w-xl'>
+      <p
+        class='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl'
+      >Get Started</p>
+      <p class='mt-6 mb-6 text-lg leading-8 text-gray-600'>Never pay for an unwanted subscription again. Rocket Money instantly finds and tracks your subscriptions. Your concierge is there when you need them to cancel services so you don’t have to.</p>
+        <a href="/sign-up" class="link">Learn More &rightarrow;</a>
+    </div>
+    <div class='relative justify-self-center'>
+      <a class="btn-primary rounded-lg px-8 py-4 text-xl " href="/sign-up">Sign Up &rightarrow;</a>
+    </div>
+  </section>
 </main>
