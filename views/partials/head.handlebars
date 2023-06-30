@@ -1,10 +1,6 @@
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-
-  {{! Tailwind CSS CDN }}
-  <script src='https://cdn.tailwindcss.com'></script>
-
   {{! FontAwesome Icons Kit }}
   <script
     src='https://kit.fontawesome.com/2773baef5c.js'
@@ -14,110 +10,7 @@
   {{! Chart.js jsDelivr CDN }}
   <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
 
-  {{! Tailwind Config }}
-  {{! prettier-ignore}}
-  <script>
-      tailwind.config = {
-        content: ['./views/**/*.{html,js,hanblebars}', './public/**/*.{html,js,css}'],
-        theme: {
-          extend: {
-            colors: {
-              clifford: '#da373d',
-              'light-blue': '#85d7ff',
-              cyan: '#79ffe1',
-            },
-          },
-        }
-      }
-    </script>
-
-  {{! Tailwind Styles }}
-  {{! prettier-ignore}}
-  <style type='text/tailwindcss' >
-
-      @layer utilities { 
-        .content-auto {
-          content-visibility: auto; 
-        }
-
-        .gradientBg-light {
-          background-image: url(/images/hero-bg-light.svg);
-          -webkit-mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%), linear-gradient(90deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%);
-          mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%), linear-gradient(90deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f600 92%);
-
-        }
-        .gradientBg {
-          background-image: url(/images/hero-bg.svg);
-          -webkit-mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f6 92%);
-          mask: linear-gradient(0deg, #f3f4f600 0%,#000000 15% , #000000 85%, #f3f4f6 92%);
-        }
-      }
-      
-      /*  Tailwind UI Components | Use These class names to style your components with all the styles after the `@apply` keyword. */
-      @layer components {
-        .flex-center {
-          @apply flex justify-center items-center;
-        }
-
-        .flex-between {
-          @apply flex justify-between items-center;
-        }
-
-        .link {
-          @apply px-3 py-2 rounded-md underline underline-offset-2 hover:underline-offset-4 text-slate-600 hover:text-slate-700 hover:bg-slate-200/60;
-        }
-
-        .focus-ring {
-          @apply focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800;
-        }
-
-        .btn-primary {
-          @apply bg-blue-500 text-white font-bold py-1 px-2 rounded hover:bg-blue-700;
-        }
-
-        .btn-danger {
-          @apply bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-red-700;
-        }
-        .btn-success {
-          @apply bg-green-500 text-white font-bold py-1 px-2 rounded hover:bg-green-700;
-        }
-        .btn-secondary {
-          @apply bg-gray-500 text-white font-bold py-1 px-2 rounded hover:bg-gray-700;
-        }
-        .btn-info {
-          @apply bg-indigo-500 text-white font-bold py-1 px-2 rounded hover:bg-indigo-700;
-        }
-        .btn-warning {
-          @apply bg-yellow-500 text-white font-bold py-1 px-2 rounded hvoer:bg-yellow-700;
-        }
-
-        .mobile-nav-link {
-          @apply text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium;
-        }
-
-        .mobile-nav-link-active {
-          @apply bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium;
-        }
-
-        .profile-dropdown-links {
-          @apply block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100;
-        }
-
-        .profile-dropdown-links-disabled {
-          @apply block px-2 py-2 text-sm bg-slate-200 text-gray-500 pointer-events-none;
-        }
-
-        .footer-link {
-          @apply underline hover:underline-offset-2 text-indigo-600 hover:text-indigo-400 font-normal;
-        }
-        .footer-links {
-          @apply grid grid-flow-row flex-wrap flex-grow gap-3 justify-evenly sm:grid-flow-col;
-        }
-
-        .footer-icons {
-          @apply w-12 h-12 bg-white rounded-full shadow flex justify-center
-        }
-      }
-    </style>
+  {{! Link to Tailwind CSS Classes }}
+  <link rel='stylesheet' href='/css/style.css' />
   <title>Fi-Glance</title>
 </head>

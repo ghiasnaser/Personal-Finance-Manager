@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply rounded-md bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
+  }
+
+  .btn-primary {
+    @apply rounded-md bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
+  }
+  .text-secondary {
+    @apply mb-6 mt-6 text-lg leading-8 text-gray-600;
+  }
+  .text-secondary-sm {
+    @apply space-y-8 text-base leading-7 text-gray-600;
+  }
+
+  .heading-1 {
+    @apply mt-2 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl;
+  }
+  .heading-2 {
+    @apply mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;
+  }
+  .heading-3 {
+    @apply mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl;
+  }
+
+  .heading-info-1 {
+    @apply mt-2 text-3xl font-bold tracking-tight text-indigo-500 sm:text-5xl;
+  }
+  .heading-info-2 {
+    @apply mt-2 text-2xl font-bold tracking-tight text-indigo-500 sm:text-3xl;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .link {
+    @apply rounded-md px-3 py-2 text-slate-600 underline underline-offset-2 hover:bg-slate-200/60 hover:text-slate-700 hover:underline-offset-4;
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800;
+  }
+
+  .btn-primary {
+    @apply rounded bg-blue-500 px-2 py-1 font-bold text-white hover:bg-blue-700;
+  }
+
+  .btn-danger {
+    @apply rounded bg-red-500 px-2 py-1 font-bold text-white hover:bg-red-700;
+  }
+  .btn-success {
+    @apply rounded bg-green-500 px-2 py-1 font-bold text-white hover:bg-green-700;
+  }
+  .btn-secondary {
+    @apply rounded bg-gray-500 px-2 py-1 font-bold text-white hover:bg-gray-700;
+  }
+  .btn-info {
+    @apply rounded bg-indigo-500 px-2 py-1 font-bold text-white hover:bg-indigo-700;
+  }
+  .btn-warning {
+    @apply rounded bg-yellow-500 px-2 py-1 font-bold text-white hover:bg-yellow-700;
+  }
+
+  .mobile-nav-link {
+    @apply block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white;
+  }
+
+  .mobile-nav-link-active {
+    @apply block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white;
+  }
+
+  .profile-dropdown-links {
+    @apply block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100;
+  }
+
+  .profile-dropdown-links-disabled {
+    @apply pointer-events-none block bg-slate-200 px-2 py-2 text-sm text-gray-500;
+  }
+
+  .footer-link {
+    @apply font-normal text-indigo-600 underline hover:text-indigo-400 hover:underline-offset-2;
+  }
+  .footer-links {
+    @apply grid flex-grow grid-flow-row flex-wrap justify-evenly gap-3 sm:grid-flow-col;
+  }
+
+  .footer-icons {
+    @apply flex h-12 w-12 justify-center rounded-full bg-white shadow;
+  }
+
+  .home-section {
+    @apply m-auto mb-12 grid max-w-screen-xl items-center justify-between gap-10 px-4 sm:grid-flow-col sm:gap-52 sm:px-20;
+  }
+
+  .home-section-gradient {
+    @apply absolute -left-[15%] top-0 -z-10 aspect-square h-full rounded-full bg-gradient-to-tl from-purple-600 via-purple-600 to-rose-600;
+  }
+
+  .section-icon-sm {
+    @apply absolute left-1 top-1 text-indigo-600;
+  }
+  .section-icon-md {
+    @apply absolute left-1 top-1 text-2xl text-indigo-600;
+  }
+
+  .section-icon-lg {
+    @apply absolute -left-1 top-2 text-4xl text-indigo-600;
+  }
+}
+
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+
+  .gradientBg-light {
+    background-image: url(/images/hero-bg-light.svg);
+    -webkit-mask: linear-gradient(
+        0deg,
+        #f3f4f600 0%,
+        #000000 15%,
+        #000000 85%,
+        #f3f4f600 92%
+      ),
+      linear-gradient(
+        90deg,
+        #f3f4f600 0%,
+        #000000 15%,
+        #000000 85%,
+        #f3f4f600 92%
+      );
+    mask: linear-gradient(
+        0deg,
+        #f3f4f600 0%,
+        #000000 15%,
+        #000000 85%,
+        #f3f4f600 92%
+      ),
+      linear-gradient(
+        90deg,
+        #f3f4f600 0%,
+        #000000 15%,
+        #000000 85%,
+        #f3f4f600 92%
+      );
+  }
+  .gradientBg {
+    background-image: url(/images/hero-bg.svg);
+    -webkit-mask: linear-gradient(
+      0deg,
+      #f3f4f600 0%,
+      #000000 15%,
+      #000000 85%,
+      #f3f4f6 92%
+    );
+    mask: linear-gradient(
+      0deg,
+      #f3f4f600 0%,
+      #000000 15%,
+      #000000 85%,
+      #f3f4f6 92%
+    );
+  }
+}

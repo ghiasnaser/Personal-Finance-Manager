@@ -7,7 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "seed": "node seeds/seeds.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "tw:build": "tailwindcss -i ./tw.css -o ./public/css/style.css",
+    "tw:dev": "tailwindcss -i ./tw.css -o ./public/css/style.css --watch",
+    "dev:tw": "nodemon -e css,js,handlebars --ignore public/css/style.css --exec \"npm run tw:build && node server.js\"",
+    "prettier:tw": "npx prettier --write ./views/**/*.handlebars",
+    "prod": "npm run tw:build && exit 0 && node server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +31,8 @@
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "tailwindcss": "^3.3.2"
   }
 }

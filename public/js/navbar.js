@@ -3,13 +3,14 @@ const mobileMenuButton = document.getElementById('mobile-menu-button');
 const userMenu = document.querySelector('#profile-dropdown div[role="menu"]');
 const mobileMenu = document.querySelector('#mobile-menu');
 const mobileIconOpen = document.querySelector(
-  '#mobile-menu-button svg:last-of-type'
+  '#mobile-menu-button i:last-of-type'
 );
 const mobileIconClose = document.querySelector(
-  '#mobile-menu-button svg:first-of-type'
+  '#mobile-menu-button i:first-of-type'
 );
 
 const toggleMenu = (button, menu, mobile) => {
+  if (!button || !menu) return;
   if (button.ariaExpanded === 'false') {
     button.ariaExpanded = 'true';
     menu.classList.add(
@@ -28,7 +29,6 @@ const toggleMenu = (button, menu, mobile) => {
       mobileIconClose.classList.remove('block');
     }
   } else {
-    console.log(mobile);
     button.ariaExpanded = 'false';
     menu.classList.add(
       'transition',
@@ -50,19 +50,18 @@ const toggleMenu = (button, menu, mobile) => {
 
 toggleMenu(userMenuButton, userMenu);
 toggleMenu(mobileMenuButton, mobileMenu, true);
-
-userMenuButton.addEventListener(
-  'click',
-  toggleMenu.bind(null, userMenuButton, userMenu)
-);
-
+if (userMenuButton) {
+  userMenuButton.addEventListener(
+    'click',
+    toggleMenu.bind(null, userMenuButton, userMenu)
+  );
+  userMenuButton.addEventListener('blur', (e) => {
+    if (userMenuButton.ariaExpanded === 'false') {
+      toggleMenu(userMenuButton, userMenu);
+    }
+  });
+}
 mobileMenuButton.addEventListener(
   'click',
   toggleMenu.bind(null, mobileMenuButton, mobileMenu, true)
 );
-
-userMenuButton.addEventListener('blur', () => {
-  if (userMenuButton.ariaExpanded === 'false') {
-    toggleMenu(userMenuButton, userMenu);
-  }
-});

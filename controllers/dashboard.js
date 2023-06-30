@@ -2,12 +2,7 @@ const router = require('express').Router();
 const { authWall } = require('../middleware/auth');
 
 // Use authWall middleware to prevent access to route and renders a page that requests the user to login or sign up
-router.use(authWall);
-
-// Main dashboard page
-router.use('/', async (req, res) => {
-  res.render('dashboard');
-});
+// router.use(authWall); // Comment this out to disable authWall and test out pages
 
 // Dashboard subpages
 
@@ -29,6 +24,10 @@ router.use('/recurring', (req, res) => {
 // goals page for viewing goals
 router.use('/goals', (req, res) => {
   res.render('dashboard/goals');
+});
+
+router.use('/', async (req, res) => {
+  res.render('dashboard');
 });
 
 module.exports = router;
