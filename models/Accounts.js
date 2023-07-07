@@ -20,6 +20,10 @@ Account.init(
         type: DataTypes.STRING,
         allowNull: false,
     },
+    balance: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
     user_id: {
         type: DataTypes.INTEGER,
         references: {

@@ -12,6 +12,10 @@ Budget.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     start_date: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -23,7 +27,7 @@ Budget.init(
       defaultValue: DataTypes.NOW,
     },
     amount: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     user_id: {
