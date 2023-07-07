@@ -22,8 +22,8 @@ Transaction.init(
       defaultValue: DataTypes.NOW,
     },
     amount: {
-      type: DataTypes.DECIMAL,
-      allowNull: true,
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true,
     },
     name: {
       type: DataTypes.STRING,

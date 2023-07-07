@@ -53,6 +53,10 @@ Account.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    balance: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
     item_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

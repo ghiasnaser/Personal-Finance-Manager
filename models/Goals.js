@@ -12,13 +12,13 @@ Goal.init(
         primaryKey: true,
         autoIncrement: true,
     },
-    date: {
+    Deadline: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
     },
     target_amount: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
     },
     goal_name:{
@@ -26,7 +26,7 @@ Goal.init(
         allowNull:true,
     },
     current_progress:{
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
     },
     user_id: {

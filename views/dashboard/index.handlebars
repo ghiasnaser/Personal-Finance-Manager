@@ -1,33 +1,164 @@
 <main>
-  <div>
-  <canvas id="myChart"></canvas>
-</div>
-<script>
-  const ctx = document.getElementById('myChart');
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        type: 'bar',
-        label: '# of Votes',
-        data: [12, 40, 3, 5, 2, 3],
-        borderWidth: 1
-      }, {
-        type: 'line',
-        label: '# of Points',
-        data: [12, 40, 3, 5, 2, 3],
-        tension: 0.3,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+<nav class="bg-gray-200 py-4">
+  <div class="container mx-auto flex items-center justify-between ml-8">
+    <div class="space-x-4">
+      <button id="Budgeting" class="bg-green-400 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">Budgeting</button>
+      <button id="Expense_Tracking" class="bg-green-400 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">Expense Tracking</button>
+      <button id="Goal_Setting" class="bg-green-400 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">Goal Setting</button>
+      <button id="Income_Tracking" class="bg-green-400 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">Income Tracking</button>
+      <button id="Reports_and_Analytics" class="bg-green-400 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">Reports and Analytics</button>
+      <button id="Reminders_and_Notifications" class="bg-green-400 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">Reminders and Notifications</button>
+    </div>
+  </div>
+</nav>
+
+
+<div class="flex flex-wrap -mx-4">
+
+  <!-- Budgeting Section -->
+  <div id="Budgeting_Section" class="w-full px-4 mb-8 hidden">
+    <div class=" bg-gray-100 p-4 shadow">
+      <div class="flex items-center justify-between pb-2">
+        <h2 class="text-xl font-bold mb-4">Budgeting</h2>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+          Add Budget
+        </button>
+      </div>
+      <hr  class="mb-2">
+      
+        <ul>
+          <!-- Budget Item -->
+          {{#if budgets.length}}
+            <p id="budget_length" class="hidden">{{budgets.length}}</p>
+          {{else}}
+            <pid="budget_length" class="hidden">0</p>
+          {{/if}}
+          {{#each budgets as |budget|}}
+            <li class="flex items-center space-x-4  bg-white">
+              <span class="mr-2 border-r-2 border-gray-500 pr-4 font-bold text-l">{{budget.name}} Budget</span>
+              <div class="grid grid-flow-row">
+                <p id="start-{{budget.id}}"><span class="font-bold text-sm">Starting Date:</span> {{format_date budget.start_date}}</p>
+                <p id="end-{{budget.id}}"><span class="font-bold text-sm">Ending Date:</span> {{format_date budget.end_date}}</p>
+                <p id="amount-{{budget.id}}"><span class="font-bold text-sm">Budget Amount:</span> ${{budget.amount}}</p>
+              </div>
+              <div class="grid grid-flow-row pl-40">
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold my-2 py-1 px-1 text-sm">
+                  Delete
+                </button>
+                <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold my-2 py-1 px-1 text-sm">
+                  Edit
+                </button>
+              </div>
+            </li>
+            <div class="chart-container pb-4 w-screen h-[300px]">
+              <canvas id="myChart-{{budget.id}}"></canvas>
+            </div>
+            <hr class="pb-10 border-black">
+          {{/each}}
+          <!-- Add more budget items as needed -->
+        </ul>
+      <canvas id="myChart"></canvas>
+      <!-- Add budgeting content here -->
+    </div>
+  </div>
+
+  <!-- Expense Tracking Section -->
+  <div id="Expense_Tracking_Section" class="w-full md:w-1/2 px-4 mb-8 hidden">
+    <div class="bg-gray-100 p-4 shadow">
+      <h2 class="text-xl font-bold mb-4">Expense Tracking</h2>
+      <!-- Add expense tracking content here -->
+      <p>Expense Tracking Section</p>
+    </div>
+  </div>
+
+  <!-- Goal Setting Section -->
+  <div id="Goal_Setting_Section" class="w-full px-4 mb-8 hidden">
+    <div class="bg-gray-100 p-4 shadow">
+      <!-- Add goal setting content here -->
+      <div class="bg-gray-100">
+        <div class="container mx-auto py-8">
+          <h1 class="text-3xl font-bold mb-4">My Goals</h1>
+          <!-- Display goals -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Goal card -->
+            {{#each goals as |goal|}}
+            <div id="goalsContainer" class="bg-white rounded shadow p-4">
+              <h2 class="text-xl font-bold mb-2">{{goal.goal_name}}</h2>
+              <p class="mb-4">Target Amount: ${{goal.target_amount}}</p>
+              <p class="mb-4">Current Progress: ${{goal.current_progress}}</p>
+              <p class="mb-4">Deadline: {{format_date goal.Deadline}}</p>
+              <div class="flex justify-end">
+                <!-- Edit and delete buttons -->
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 mr-2 edit-goal-btn" data-goal-id="{{goal.id}}">Edit</button>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 delete-goal-btn" data-goal-id="{{goal.id}}">Delete</button>
+                
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          <div id="popupWindow" class="fixed inset-0 items-center justify-center bg-black bg-opacity-50 hidden">
+            <form id="editGoalForm" class="bg-white rounded p-4">
+              <!-- Form inputs go here -->
+            </form>
+          </div>
+          <!-- Add new goal form -->
+          <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Add New Goal</h2>
+            <form id="addGoalForm" class="bg-white rounded shadow p-4">
+              <div class="mb-4">
+                <label for="goalName" class="block text-gray-700 font-bold mb-2">Goal Name</label>
+                <input type="text" id="goalName" class="border border-gray-300 rounded px-4 py-2 w-full">
+              </div>
+              <div class="mb-4">
+                <label for="targetAmount" class="block text-gray-700 font-bold mb-2">Target Amount</label>
+                <input type="number" step="0.01" id="targetAmount" class="border border-gray-300 rounded px-4 py-2 w-full">
+              </div>
+              <div class="mb-4">
+                <label for="goal-deadline" class="block font-bold mb-2">Goal Deadline</label>
+                <input type="date" id="goal-deadline" name="goal-deadline" required class="border border-gray-300 rounded-md px-4 py-2 w-full">
+              </div>
+              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4" type="submit">Add Goal</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Income Tracking Section -->
+  <div id="Income_Tracking_Section" class="w-full md:w-1/2 px-4 mb-8 hidden">
+    <div class="bg-gray-100 p-4 shadow">
+      <h2 class="text-xl font-bold mb-4">Income Tracking</h2>
+      <!-- Add income tracking content here -->
+      <p>Income Tracking Section</p>
+    </div>
+  </div>
+
+  <!-- Reports and Analytics Section -->
+  <div id="Reports_Analytics_Section" class="w-full md:w-1/2 px-4 mb-8 hidden">
+    <div class="bg-gray-100 p-4 shadow">
+      <h2 class="text-xl font-bold mb-4">Reports and Analytics</h2>
+      <!-- Add reports and analytics content here -->
+      <p>Reports and Analytics Section</p>
+    </div>
+  </div>
+
+  <!-- Reminders and Notifications Section -->
+  <div id="Reminders_Notifications_Section" class="w-full md:w-1/2 px-4 mb-8 hidden">
+    <div class="bg-gray-100 p-4 shadow">
+      <h2 class="text-xl font-bold mb-4">Reminders and Notifications</h2>
+      <!-- Add reminders and notifications content here -->
+      <p>Reminders and Notifications Section</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const userId = "{{ userId }}";
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="/js/chart.js"></script>
+<script src="/js/dashboard.js"></script>
 </main>
