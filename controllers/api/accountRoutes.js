@@ -1,8 +1,10 @@
 const accountRouter = require('express').Router();
 const { Account, Transaction } = require('../../models');
 const { withAuth } = require('../../middleware/auth');
+const devRouteBlocker = require('../../middleware/devRouteBlocker');
 
 // Account Router for the base URL: /api/accounts
+
 accountRouter
   .route('/')
   // Getting all accounts for a user
@@ -51,7 +53,7 @@ accountRouter
   .get(withAuth, async (req, res) => {
     try {
       const account = await Account.findByPk(req.params.id, {
-        include: { model: Transactions },
+        include: { model: Transaction },
       });
       res.status(200).json({ message: 'Account Found', data: account });
     } catch (err) {
@@ -84,5 +86,18 @@ accountRouter
       res.status(400).json({ message: 'Could Not Delete Account', error: err });
     }
   });
+
+// Routes For Testing
+
+accountRouter.get('/all', devRouteBlocker, async (req, res) => {
+  try {
+    const accounts = await Account.findAll({
+      include: { model: Transaction },
+    });
+    res.status(200).json({ message: 'Accounts Found', data: accounts });
+  } catch (err) {
+    res.status(400).json({ message: 'Could Not Find Accounts', error: err });
+  }
+});
 
 module.exports = accountRouter;

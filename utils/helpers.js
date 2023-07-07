@@ -7,4 +7,8 @@ module.exports = {
     // format large numbers with commas
     return parseInt(amount).toLocaleString();
   },
+  formatInstitution: (institution) => {
+    // format institution name
+    return institution.replace(/ /g, '_').toLowerCase();
+  }
 };

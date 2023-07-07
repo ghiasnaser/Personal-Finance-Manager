@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
 // Setting up the auth routes (login, sign-up)
-router.use(require('./auth'));
+router.use(require('./login'));
+router.use(require('./sign-up'));
 
 // Setting up the API routes
 router.use('/api', require('./api'));

@@ -1,21 +1,26 @@
 <main class='flex min-h-full flex-col justify-center px-6 py-12 lg:px-8'>
-  <div class='sm:mx-auto sm:w-full sm:max-w-sm'>
+  <div class='relative sm:mx-auto sm:w-full sm:max-w-sm'>
     <div class='mx-auto'>
       {{> logo}}
     </div>
     <h2
-      class='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'
+      class='mb-10 mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'
     >
       {{#if signUp}}
         Create a new account
       {{else}}
         Sign in to your account
       {{/if}}
+
+      <span
+        id='response'
+        class='absolute bottom-0 left-1/2 -translate-x-1/2 font-mono text-lg font-bold text-red-500'
+      ></span>
     </h2>
   </div>
 
   <div class='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-    <form id="auth-form" class='space-y-6'>
+    <form id='auth-form' class='space-y-8'>
 
       {{#if signUp}}
         <div>
@@ -104,8 +109,8 @@
     {{/if}}
   </div>
   {{#if signUp}}
-    <script src="./js/sign-up.js"> </script>
+    <script src='/js/sign-up.js'></script>
   {{else}}
-    <script src="./js/login.js"> </script>
+    <script src='/js/login.js'></script>
   {{/if}}
 </main>
