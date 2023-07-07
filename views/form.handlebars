@@ -1,21 +1,26 @@
 <main class='flex min-h-full flex-col justify-center px-6 py-12 lg:px-8'>
-  <div class='sm:mx-auto sm:w-full sm:max-w-sm'>
+  <div class='relative sm:mx-auto sm:w-full sm:max-w-sm'>
     <div class='mx-auto'>
       {{> logo}}
     </div>
     <h2
-      class='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'
+      class='mb-10 mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'
     >
       {{#if signUp}}
         Create a new account
       {{else}}
         Sign in to your account
       {{/if}}
+
+      <span
+        id='response'
+        class='absolute bottom-0 left-1/2 -translate-x-1/2 font-mono text-lg font-bold text-red-500'
+      ></span>
     </h2>
   </div>
 
   <div class='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-    <form id="auth-form" class='space-y-6'>
+    <form id='auth-form' class='space-y-8'>
 
       {{#if signUp}}
         <div>
@@ -104,54 +109,8 @@
     {{/if}}
   </div>
   {{#if signUp}}
-    <script>
-      const form = document.querySelector('#auth-form');
-    
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        console.log(form);
-
-        const name = document.querySelector('#first-name').value.trim();
-        const email = document.querySelector('#email').value.trim();
-        const password = document.querySelector('#password').value.trim();
-
-        if (name) {
-          console.log(name);
-        }
-        const response = await fetch('/api/users/sign-up', {
-          method: 'POST',
-          body: JSON.stringify({ name, email, password }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (response.ok) {
-          // document.location.replace('/dashboard');
-        } else {
-          alert(await response.json().body.message);
-        }
-      });
-    </script>
+    <script src='/js/sign-up.js'></script>
   {{else}}
-    <script>
-      const form = document.querySelector('#auth-form');
-    
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.querySelector('#email').value.trim();
-        const password = document.querySelector('#password').value.trim();
-    
-        const response = await fetch('/api/users/login', {
-          method: 'POST',
-          body: JSON.stringify({ email, password }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-    
-        if (response.ok) {
-          document.location.replace('/dashboard');
-        } else {
-          alert(await response.json().body.message);
-        }
-      });
-    </script>
+    <script src='/js/login.js'></script>
   {{/if}}
 </main>

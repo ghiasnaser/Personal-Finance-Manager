@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { authWall } = require('../middleware/auth');
-const { Account } = require('../models');
-const { Products, CountryCode } = require('plaid');
-const plaidClient = require('../config/plaid');
+const { Account, Item, Transaction } = require('../models');
 
 // Use authWall middleware to prevent access to route and renders a page that requests the user to login or sign up
 
@@ -16,14 +14,18 @@ router.get('/', async (req, res) => {
 // accounts page for adding and viewing accounts
 router.get('/accounts', async (req, res) => {
   try {
-    const accounts = await Account.findAll({
+    // Get all items for the user
+    const itemsData = await Item.findAll({
       where: {
         user_id: req?.session?.user?.id,
       },
+      include: [{ model: Account, include: [{ model: Transaction }] }],
     });
-    res.render('dashboard/accounts', { accounts });
+    // Serialize data so the template can read it
+    const items = itemsData.map((item) => item.get({ plain: true }));
+
+    res.render('dashboard/accounts', { items });
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 });

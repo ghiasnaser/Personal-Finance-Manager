@@ -1,99 +1,82 @@
 <main>
   Accounts
   <ul class='mx-auto max-w-screen-lg px-3'>
-    {{#each accounts}}
-      <li
-        class='flex-between mb-3 rounded-md border-2 border-gray-500 px-5 shadow-xl'
-      >
-        <div class='flex flex-col'>
-          <a
-            class='hover:underline'
-            href='/dashboard/accounts/{{id}}'
-          >{{name}}</a>
-          <small class='ml-2 text-gray-600'>{{subtype}}</small>
-        </div>
-        <div class='flex flex-col'>
-          <small><em
-              class='mr-2 font-bold text-black'
-            >Available:</em>{{balances.available}}</small>
-          <small><em
-              class='mr-2 font-bold text-black'
-            >Current:</em>{{balances.current}}</small>
-        </div>
-      </li>
+    {{#each items}}
+      {{#each accounts}}
+        <li
+          class='flex-between relative mb-4 rounded-md border-2 border-gray-500 px-5 shadow-xl'
+        >
+          <img
+            src='/images/institutions/{{formatInstitution
+              ../institution_name
+            }}.png'
+            alt='{{../institution_name}}'
+            class='absolute left-0 top-0 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-sm shadow-xl'
+          />
+          <div class='flex flex-col'>
+            <a
+              class='hover:underline'
+            >{{name}} <small class='ml-2 text-gray-600'>...{{mask}}</small></a>
+            <small class='ml-2 text-gray-600'>{{type}}</small>
+          </div>
+          <div class='flex flex-col'>
+            {{#if available}}
+            <small><em
+                class='mr-2 font-bold text-black'
+              >Available:</em>{{available}}</small>
+            {{/if}}
+            <small><em
+                class='mr-2 font-bold text-black'
+              >Current:</em>{{current}}</small>
+          </div>
+        </li>
+      {{/each}}
     {{/each}}
-    <li
-      class='flex-between m-auto max-w-md rounded-md border-2 border-gray-500 px-5 py-2 shadow-xl hover:bg-green-600/40'
-    >
-      <button
-        class='flex-between h-full w-full text-lg font-bold text-green-600'
-        id='new-account-button'
-      >
-        New Account
-        <span>
-          <i class='fa-solid fa-plus fa-lg'></i>
-        </span>
-      </button>
-    </li>
   </ul>
-  {{! prettier-ignore }}
-  <script>
-    const initLink = async () => {
-      console.log( (await fetch('/api/plaid/get-link-token')))
-        // const handler = Plaid.create({
-        //   token: ,
-        //   onLoad: function () {
-        //     // Optional, called when Link loads
-        //     console.log('Loading Link...')
-        //   },
-        //   onSuccess: async (publicToken, metadata) => {
-        //     await fetch('/api/plaid/get-access-token', {
-        //       method: 'POST',
-        //       body: JSON.stringify({ public_token: publicToken }),
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //     });
-        //     await getBalance();
-        //   },
-        //   onEvent: (eventName, metadata) => {
-        //     console.log('Event:', eventName);
-        //     console.log('Metadata:', metadata);
-        //   },
-        //   onExit: (error, metadata) => {
-        //     console.log(error, metadata);
-        //   },
-        // });
-        // handler.open();
-    }
+  <section class='mx-auto max-w-screen-2xl'>
+    <div class='flex justify-between'>
+      <div>
+        <h4 class='heading-2'>{{#if items.length}} {{items.length}} Bank(s) Linked {{else}} Link Bank Account{{/if}}</h4>
+        <p>Below is a list of all your connected banks.</p>
+      </div>
+      <button
+        id='new-account-button'
+        class='btn-secondary relative bg-black pr-10 text-xl after:absolute after:right-3 after:top-1/2 after:-translate-y-1/2 after:content-[">"] after:hover:right-2'
+      >Link {{#if items.length}} another {{else}} a {{/if}}Bank</button>
+    </div>
+    <ul class='my-5'>
+      {{#each items}}
+        <li class='m-2 bg-slate-50 px-4 py-2 shadow-md'>
+          <div class='flex-between'>
+            <div class='flex items-center gap-4'>
+              <img
+                src='/images/institutions/{{formatInstitution
+                  institution_name
+                }}.png'
+                alt='{{institution_name}}'
+              />
+              <h5 class='heading-4'>{{institution_name}}</h5>
+            </div>
+            <button data-item-id='{{id}}' class='remove-account-btn btn-danger'>Remove</button>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('new-account-button').addEventListener('click', initLink)
-    })
-
-    // Retrieves balance information
-    const getBalance = async function () {
-      const response = await fetch('/api/data', {
-        method: 'GET',
-      });
-
-      const data = await response.json();
-      
-      //Render response data
-      const pre = document.getElementById('response');
-      pre.textContent = JSON.stringify(data, null, 2);
-      pre.style.background = '#F6F6F6';
-    };
-
-    // Check whether account is connected
-    const getStatus = async function () {
-      const account = await fetch('/api/is_account_connected');
-      const connected = await account.json();
-      if (connected.status == true) {
-        getBalance();
-      }
-    };
-
-    getStatus();
-  </script>
+  </section>
+  <pre id='response'></pre>
+  <dialog class="rounded-md shadow-lg shadow-black/30 backdrop:bg-slate-700/30 backdrop:backdrop-blur-sm" id="remove-bank-dialog">
+    <div>
+      <p>Are your sure you want to remove this bank?</p>
+      <hr class="my-2" />
+      <div>
+        <button id="remove-bank" class="btn-danger">Remove</button>
+        <button id="cancel-dialog" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </dialog>
+  <script
+    src='https://cdn.plaid.com/link/v2/stable/link-initialize.js'
+  ></script>
+  <script src='/js/link.js'></script>
 </main>

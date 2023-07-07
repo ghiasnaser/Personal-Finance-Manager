@@ -1,38 +1,119 @@
 const { Account } = require('../models');
 
 const accountData = [
-    {
-        "account_name": "Bank of America",
-        "account_type": "Checking",
-        "user_id": 1
-    },
-    {
-        "account_name": "Wells Fargo",
-        "account_type": "Savings",
-        "user_id": 2
-    },
-    {
-        "account_name": "School Financial Credit Union",
-        "account_type": "Investment",
-        "user_id": 3
-    },
-    {
-        "account_name": "Chase Bank",
-        "account_type": "Savings",
-        "user_id": 4
-    },
-    {
-        "account_name": "Citibank",
-        "account_type": "Investment",
-        "user_id": 5
-    },
-    {
-        "account_name": "U.S. Bank",
-        "account_type": "Checking",
-        "user_id": 6
-    }
-
-]
+  {
+    id: 1,
+    account_id: 'gKgRBjEdPbTBvRNwyekmtZrgwqWP3WCLRXe66',
+    available: 200,
+    current: 210,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid Saving',
+    mask: '1111',
+    official_name: 'Plaid Silver Standard 0.1% Interest Saving',
+    type: 'savings',
+    item_id: 1,
+  },
+  {
+    id: 2,
+    account_id: '8ern7BNADpHv4WrlLdeECK14axMA8MCZpyPX1',
+    available: null,
+    current: 1000,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid CD',
+    mask: '2222',
+    item_id: 1,
+    official_name: 'Plaid Bronze Standard 0.2% Interest CD',
+    type: 'cd',
+  },
+  {
+    id: 3,
+    account_id: 'EGQqAM8bw9fbyqGj75nvcgG8XbkrlkCgeLaBQ',
+    available: null,
+    current: 410,
+    iso_currency_code: 'USD',
+    limit: 2000,
+    unofficial_currency_code: null,
+    name: 'Plaid Credit Card',
+    mask: '3333',
+    official_name: 'Plaid Diamond 12.5% APR Interest Credit Card',
+    type: 'credit card',
+    item_id: 1,
+  },
+  {
+    id: 4,
+    account_id: 'Wvx1Z6aVLRiBR16d85E7twokR4n3PniPyGdb8',
+    available: 43200,
+    current: 43200,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid Money Market',
+    mask: '4444',
+    official_name: 'Plaid Platinum Standard 1.85% Interest Money Market',
+    type: 'money market',
+    item_id: 1,
+  },
+  {
+    id: 5,
+    account_id: 'A8PDg7L6xnFy6zAa5ZnbcajvMRr7XrC4Jvbpm',
+    available: null,
+    current: 320.76,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid IRA',
+    mask: '5555',
+    official_name: null,
+    type: 'ira',
+    item_id: 1,
+  },
+  {
+    id: 6,
+    account_id: 'GvMrqLWAyQiXZrMez5xwsyeb9z7PG7fGx4VpL',
+    available: null,
+    current: 23631.9805,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid 401k',
+    mask: '6666',
+    official_name: null,
+    type: '401k',
+    item_id: 1,
+  },
+  {
+    id: 7,
+    account_id: 'narqPLyeM5SPg58bXK6EH7RxV8bEXbt3VBa57',
+    available: null,
+    current: 65262,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid Student Loan',
+    mask: '7777',
+    official_name: null,
+    type: 'student',
+    item_id: 1,
+  },
+  {
+    id: 8,
+    account_id: 'bvMbldLr6xiln5Q1Z43zt9jrEL7Ko7ioKwRkg',
+    available: null,
+    current: 56302.06,
+    iso_currency_code: 'USD',
+    limit: null,
+    unofficial_currency_code: null,
+    name: 'Plaid Mortgage',
+    mask: '8888',
+    official_name: null,
+    type: 'mortgage',
+    item_id: 1,
+  },
+];
 
 const seedAccounts = async () => await Account.bulkCreate(accountData);
 
