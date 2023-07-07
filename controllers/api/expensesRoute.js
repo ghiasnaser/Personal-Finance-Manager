@@ -1,5 +1,36 @@
 const router = require('express').Router();
-const Expenses = require('../../models/Expenses');
+const { Budget,Expenses,Transaction,sequelize  } = require('../../models');
+
+
+// Route to get the amount spent on a specific budget
+router.get('/budget/:id/amount-spent', async (req, res) => {
+  try {
+    const budgetId = req.params.id;
+    console.log(budgetId);
+
+    // Find the budget by ID
+    const budget = await Budget.findByPk(budgetId, {
+      include: [
+        {
+          model: Transaction,
+          through: Expenses,
+        },
+      ],
+    });
+    const sanitizedBudget = {
+      ...budget.dataValues,
+      transactions: budget.transactions.map(transaction => transaction.dataValues)
+    };
+    console.log(sanitizedBudget);
+    if (!budget) {
+      return res.status(404).json({ error: 'no transcation founded under this budget' });
+    }
+    return res.json(budget);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to calculate amount spent on budget' });
+  }
+});
 
 router.get('/', async (req, res) => {
     try {

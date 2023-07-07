@@ -1,5 +1,5 @@
 const accountRouter = require('express').Router();
-const { Account, Transactions } = require('../../models');
+const { Account, Transaction } = require('../../models');
 const { withAuth } = require('../../middleware/auth');
 
 // Account Router for the base URL: /api/accounts
@@ -7,16 +7,27 @@ accountRouter
   .route('/')
   // Getting all accounts for a user
   .get(withAuth, async (req, res) => {
+    try{
     const user = req.session.user;
     const accounts = await Account.findAll({
       where: { user_id: user.id },
-      include: { model: Transactions },
+      include: { model: Transaction },
       attributes: { exclude: [''] },
+      //group: ['account_name'],
     });
     const plainAccounts = accounts.map((account) =>
       account.get({ plain: true })
     );
-    res.json(plainAccounts);
+    console.log(plainAccounts);
+   /* res.render('dashboard/index', {
+      ...plainAccounts,
+      logged_in: true
+    });*/
+   res.json(plainAccounts);
+  }catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Failed to fetch accounts' });
+    }
   })
   // Creating a new account for a user
   .post(withAuth, async (req, res) => {
