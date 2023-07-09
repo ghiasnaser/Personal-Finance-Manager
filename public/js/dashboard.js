@@ -79,6 +79,15 @@ if (activeSection) {
 }
 
 });
+
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
 // adding goal to the user goals
 // Function to handle form submission
 async function addGoal(event) {
@@ -468,21 +477,23 @@ async function editBudgetForm(budgetData){
 
   // Create and append the Deadline input
   const startDateLabel = document.createElement('label');
-  startDateLabel.textContent = 'Start Date:';
-  const startDateInput = document.createElement('input');
-  startDateInput.type = 'date';
-  // we have to format the start_dtae
-  startDateInput.value = start_date;
-  startDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
-  form.appendChild(startDateLabel);
-  form.appendChild(startDateInput);
+startDateLabel.textContent = 'Start Date:';
+const startDateInput = document.createElement('input');
+startDateInput.type = 'date';
+const formattedStartDate = formatDate(new Date(start_date)); // Format the start_date value
+startDateInput.value = formattedStartDate;
+startDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+form.appendChild(startDateLabel);
+form.appendChild(startDateInput);
+
 
    // Create and append the Deadline input
    const endDateLabel = document.createElement('label');
    endDateLabel.textContent = 'End Date:';
    const endDateInput = document.createElement('input');
    endDateInput.type = 'date';
-   endDateInput.value = end_date;
+   const formattedEndDate = formatDate(new Date(end_date));
+   endDateInput.value = formattedEndDate;
    endDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
    form.appendChild(endDateLabel);
    form.appendChild(endDateInput);
