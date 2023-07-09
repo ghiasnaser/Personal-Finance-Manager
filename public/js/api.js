@@ -1,7 +1,7 @@
 class ApiFunctions {
   constructor() {
     this.api = axios.create({
-      baseURL: 'http://localhost:3003/api',
+      baseURL: `${process.env.URL}/api`,
       headers: {
         'Content-Type': 'application/json',
       },
