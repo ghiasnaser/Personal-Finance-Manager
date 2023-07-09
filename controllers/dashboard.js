@@ -76,13 +76,12 @@ router.post('/goals', async (req, res) => {
   try {
     const currentUser = req.session.user;
     const { goal_name, deadline } = req.body;
+    console.log('adding a goal 111111111111111111111111111111111111111111111111111111111111111111111111111111111');
     console.log(req.body);
-    console.log('-----------------------------------------');
-    console.log(goal_name);
     const targetAmount = parseFloat(req.body.target_amount);
     // Create a new goal with the provided data and associate it with the current user
     const newGoal = await Goal.create({
-      deadline: deadline,
+      Deadline: deadline,
       target_amount: targetAmount,
       goal_name: goal_name,
       current_progress:0,

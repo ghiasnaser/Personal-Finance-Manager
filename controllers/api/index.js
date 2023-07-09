@@ -15,4 +15,6 @@ apiRouter.use('/expense', require('./expensesRoute.js'));
 
 apiRouter.use('/goals', require('./goalRoutes.js'));
 
+apiRouter.use('/budgets', require('./budgetRoutes.js'));
+
 module.exports = apiRouter;

@@ -6,7 +6,6 @@ async function fetchExpenses(id){
     });
     const data= await response.json()
     const transactions=data.transactions;
-    console.log(transactions);   
     var spending=[];
     for (var j=0;j<transactions.length;j++){
         spending.push(transactions[j].amount);
