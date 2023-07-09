@@ -471,6 +471,7 @@ async function editBudgetForm(budgetData){
   startDateLabel.textContent = 'Start Date:';
   const startDateInput = document.createElement('input');
   startDateInput.type = 'date';
+  // we have to format the start_dtae
   startDateInput.value = start_date;
   startDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(startDateLabel);
