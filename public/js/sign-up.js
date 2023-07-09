@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = document.querySelector('#password').value.trim();
 
     const response = await api.signupUser({ name, email, password });
+
     if (response.status === 200) {
       document.location.replace('/dashboard');
     } else {

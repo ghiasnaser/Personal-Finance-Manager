@@ -1,8 +1,15 @@
 const router = require('express').Router();
 const { authWall } = require('../middleware/auth');
-const { Account, Item, Transaction, User, Budget, Goal } = require('../models');
-const { Products, CountryCode } = require('plaid');
-const plaidClient = require('../config/plaid');
+const {
+  Account,
+  Item,
+  Transaction,
+  User,
+  Budget,
+  Goal,
+  Category,
+} = require('../models');
+const plaidHelpers = require('../utils/plaid');
 
 // Use authWall middleware to prevent access to route and renders a page that requests the user to login or sign up
 
@@ -10,37 +17,36 @@ router.use(authWall); // Comment this out to disable authWall and test out pages
 
 // Dashboard subpages
 router.get('/', async (req, res) => {
-  try{
+  try {
     // get the budgets of the user
     const currentUser = req.session.user;
-    const data1=await User.findAll({
-      where:{
-        id: currentUser.id
+    const data1 = await User.findAll({
+      where: {
+        id: currentUser.id,
       },
-      include:{model:Budget},
+      include: { model: Budget },
     });
-    const userData= data1.map((user)=>{
-      return user.get({plain:true})
+    const userData = data1.map((user) => {
+      return user.get({ plain: true });
     });
-    const budegetData=userData[0].budgets;
+    const budegetData = userData[0].budgets;
 
     // get the goals of the user
-    const data2=await Goal.findAll({
-      where:{
-        user_id: currentUser.id
+    const data2 = await Goal.findAll({
+      where: {
+        user_id: currentUser.id,
       },
     });
-    const goalData= data2.map((goal)=>{
-      return goal.get({plain:true})
+    const goalData = data2.map((goal) => {
+      return goal.get({ plain: true });
     });
 
     // rendering the data
-    res.render('dashboard/index',{
+    res.render('dashboard/index', {
       budgets: budegetData,
-      goals:goalData,
+      goals: goalData,
     });
-  }
-  catch (error){
+  } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to fetch user data' });
   }
@@ -66,13 +72,125 @@ router.get('/accounts', async (req, res) => {
 });
 
 // transactions page for viewing transactions (By category / date range)
-router.use('/payments', (req, res) => {
-  res.render('dashboard/payments');
+router.use('/payments', async (req, res) => {
+  const user = await User.findByPk(req?.session?.user?.id, {
+    include: [
+      {
+        model: Item,
+        include: [
+          {
+            model: Account,
+            include: [{ model: Transaction, include: [{ model: Category }] }],
+          },
+        ],
+      },
+    ],
+  });
+
+  const transactions = user.items
+    .map((item) => {
+      return item.accounts.map((account) => {
+        return account.transactions.map((transaction) => {
+          return transaction.get({ plain: true });
+        });
+      });
+    })
+    .flat(2);
+
+  const ordered = transactions.sort((a, b) => a.date - b.date);
+
+  ordered.forEach((transaction) => {
+    transaction.date = new Date(transaction.date)
+      .toLocaleDateString()
+      .slice(0, -5);
+  });
+
+  const groupByDate = {};
+
+  ordered.forEach((transaction) => {
+    if (!groupByDate[transaction.date]) {
+      groupByDate[transaction.date] = [];
+    }
+    groupByDate[transaction.date].push(transaction);
+  });
+
+  const groupByCategory = {};
+
+  ordered.forEach((transaction) => {
+    const hierarchy = transaction.category?.hierarchy
+      ? JSON.parse(transaction.category?.hierarchy)
+      : ['Uncategorized'];
+    if (!groupByCategory[hierarchy[0]]) {
+      groupByCategory[hierarchy[0]] = [];
+    }
+    groupByCategory[hierarchy[0]].push(transaction);
+  });
+
+  const categoryLabels = Object.keys(groupByCategory);
+
+  const categoryGroups = Object.values(groupByCategory).map((category, i) => {
+    return {
+      title: categoryLabels[i],
+      transactions: category,
+      precentage: category.length / transactions.length,
+    };
+  });
+
+  const dates = Object.keys(groupByDate);
+  const amounts = Object.values(groupByDate).map(
+    (transactions) => transactions.length
+  );
+  const amountsCash = Object.values(groupByDate).map(
+    (transactions) =>
+      transactions.reduce((a, b) => a + parseInt(b.amount), 0) / 100
+  );
+
+  res.render('dashboard/payments', {
+    transactions: ordered,
+    dates,
+    amounts,
+    amountsCash,
+    categoryGroups,
+  });
 });
 
 // recurring page for viewing recurring transactions
-router.use('/recurring', (req, res) => {
-  res.render('dashboard/recurring');
+router.use('/recurring', async (req, res) => {
+  try {
+    const data = await User.findByPk(req?.session?.user?.id, {
+      include: [
+        {
+          model: Item,
+          include: [
+            {
+              model: Account,
+              include: [
+                {
+                  model: Transaction,
+                  where: { reccuring: true },
+                  include: [{ model: Category }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    const user = data.get({ plain: true });
+
+    user.items.forEach((item) => {
+      item.accounts.forEach((account) => {
+        account.transactions.forEach((transaction) => {
+          transaction.categories = JSON.parse(transaction.category.hierarchy);
+        });
+      });
+    });
+
+    res.render('dashboard/recurring', { user });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // goals page for viewing goals
@@ -89,7 +207,7 @@ router.post('/goals', async (req, res) => {
       deadline: deadline,
       target_amount: targetAmount,
       goal_name: goal_name,
-      current_progress:0,
+      current_progress: 0,
       user_id: currentUser.id,
     });
 
@@ -100,6 +218,5 @@ router.post('/goals', async (req, res) => {
     res.status(500).json({ error: 'Failed to create a new goal' });
   }
 });
-
 
 module.exports = router;

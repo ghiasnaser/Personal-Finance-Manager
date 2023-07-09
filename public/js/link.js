@@ -17,14 +17,20 @@ const initLink = async () => {
     token: (await api.getLinkToken()).linkToken,
     onLoad: function () {},
     onSuccess: async (publicToken, metadata) => {
-      console.log('Success:', publicToken, metadata);
+      // console.log('Success:', publicToken, metadata);
       const { item_id } = await api.exchangePublicToken(publicToken, metadata);
 
       await api.setAccounts(item_id);
 
       await api.setTransactions(item_id);
 
-      await api.setReccuringTransactions(item_id)
+      try {
+        await api.setReccuringTransactions(item_id);
+      } catch (err) {
+        alert('Error setting recurring transactions. try again later');
+        // console.log(err);
+      }
+      // await api.setReccuringTransactions(item_id)
 
       document.location.reload();
     },

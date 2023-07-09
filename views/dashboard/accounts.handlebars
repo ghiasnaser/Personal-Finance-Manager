@@ -1,5 +1,5 @@
 <main>
-  Accounts
+  <h2 class="text-4xl font-semibold text-center underline underline-offset-4 decoration-4 mb-3 decoration-blue-600">Accounts connected</h2>
   <ul class='mx-auto max-w-screen-lg px-3'>
     {{#each items}}
       {{#each accounts}}
@@ -50,6 +50,7 @@
           <div class='flex-between'>
             <div class='flex items-center gap-4'>
               <img
+              class="h-10 w-10 object-cover rounded"
                 src='/images/institutions/{{formatInstitution
                   institution_name
                 }}.png'

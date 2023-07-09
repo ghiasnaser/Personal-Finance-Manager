@@ -1,4 +1,45 @@
 <main>
   Recurring
+  <section>
+    <h3 class='font-sans text-2xl font-bold'>Your Reccuring Transactions</h3>
+    <div class='px-5 py-3'>
+
+      <ul id='reccuring-transactions' class='flex flex-wrap items-center justify-evenly px-5 py-3'>
+
+        {{#each user.items}}
+          {{#each this.accounts}}
+            {{#each this.transactions}}
+              {{#if reccuring}}
+                <li
+                  class='relative flex h-auto w-32 flex-col items-center justify-center rounded-md bg-white/40 p-3 px-2 py-4 m-4 shadow-md'
+                >
+                  <span class="absolute top-1 right-1">{{format_date_sm date}}</span>
+                  <img
+                    class='absolute left-0 top-0 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded shadow-black/20 drop-shadow-sm'
+                    src='/images/institutions/{{formatInstitution ../../institution_name}}.png'
+                    alt='{{../../institution_name}}'
+                  />
+                  <img
+                    class='h-10 w-10'
+                    src='/images/icons/{{firstCategory categories}}.svg'
+                    alt='{{categories}}'
+                  />
+                  <h4 class="text-center">{{name}}</h4>
+                  <p>{{amount}}</p>
+                  <div class='flex w-full gap-0.5 overflow-hidden'>
+                    {{#each categories}}
+                      <span
+                        class='whitespace-nowrap items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10'
+                      >{{this}}</span>
+                    {{/each}}
+                  </div>
+                </li>
+              {{/if}}
+            {{/each}}
+          {{/each}}
+        {{/each}}
+      </ul>
+    </div>
+  </section>
   <script src='/js/recurring.js'></script>
 </main>

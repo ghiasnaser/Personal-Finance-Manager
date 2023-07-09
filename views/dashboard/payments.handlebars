@@ -1,3 +1,83 @@
 <main>
   Payments
+  <div class='m-auto before:content-["Cash"]' style='width: 1000px;'><canvas
+      id='transactions'
+    ></canvas></div>
+  <section class='grid grid-cols-1 gap-5 px-5 sm:grid-cols-3'>
+    {{#each categoryGroups}}
+      <section
+        class='h-fit max-w-full overflow-hidden rounded-md shadow-lg shadow-black/40 sm:max-w-xl'
+      >
+        <details>
+          <summary class='cursor-pointer list-none'>
+            <header
+              class='flex items-center justify-between border-b-2 border-b-slate-400 bg-slate-100 px-2 py-1 shadow-sm shadow-black/30'
+            >
+              <div class='flex-center gap-1'>
+                <img
+                  class='h-10 w-10'
+                  src='/images/icons/{{formatInstitution title}}.svg'
+                  alt='{{formatInstitution title}}'
+                />
+                <h3 class='text-xl font-bold'>{{title}}</h3>
+              </div>
+              <span class='text-lg text-slate-700'>%
+                {{format_precentage precentage}}</span>
+            </header>
+          </summary>
+          <ul>
+            {{#each transactions}}
+              <li
+                class='flex items-center justify-between border-b-2 border-slate-300 px-6 last-of-type:border-none'
+              >
+                <div>
+                  <p class='text-ellipsis font-medium'>{{name}}</p>
+                  <small class='font-medium text-slate-500'>{{date}}</small>
+                </div>
+                <span class='text-base font-medium text-black'>$
+                  {{amount}}</span>
+              </li>
+            {{/each}}
+          </ul>
+        </details>
+      </section>
+    {{/each}}
+  </section>
+  {{! prettier-ignore}}
+  <script>
+    const ctx = document.getElementById('transactions');
+    const dates = '{{dates}}';
+    const amounts = '{{amounts}}';
+    const amountsCash = '{{amountsCash}}';
+    new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        labels: dates.split(','),
+        datasets: [{
+          type: 'bar',
+          label: '# of Transactions',
+          data: amounts.split(','),
+          borderWidth: 1,
+          backgroundColor: 'rgba(255, 99, 132, .5)',
+          borderColor: 'rgba(255, 99, 132, .5)',
+          order: 2
+        }, {
+          type: 'line',
+          label: 'Total Spent $',
+          data: amountsCash.split(','),
+          tension: 0.5,
+          fill: false,
+          borderColor: 'rgb(54, 162, 235)',
+          order: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
 </main>

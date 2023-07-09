@@ -14,11 +14,6 @@ apiRouter.use('/categories', require('./categoriesRoutes.js'));
 
 apiRouter.use('/transactions', require('./transactionRoutes.js'));
 
-
-apiRouter.use('/categories', require('./categoriesRoutes.js'));
-
-apiRouter.use('/transactions', require('./transactionRoutes.js'));
-
 apiRouter.use('/items', require('./itemRoutes.js'));
 
 module.exports = apiRouter;
