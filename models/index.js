@@ -5,16 +5,37 @@ const Category = require('./Categories');
 const Expenses = require('./Expenses');
 const Goal = require('./Goals');
 const Transaction = require('./Transactions');
+const Item = require('./Items');
 
-// User - Account relation is one to many
-User.hasMany(Account, {
+Item.hasMany(Account, {
+  foreignKey: 'item_id',
+  onDelete: 'CASCADE',
+});
+
+Account.belongsTo(Item, {
+  foreignKey: 'item_id',
+  onDelete: 'CASCADE',
+});
+
+Item.belongsTo(User, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE',
 });
 
-Account.belongsTo(User, {
+User.hasMany(Item, {
   foreignKey: 'user_id',
+  onDelete: 'CASCADE',
 });
+
+// // User - Account relation is one to many
+// User.hasMany(Account, {
+//   foreignKey: 'user_id',
+//   onDelete: 'CASCADE',
+// });
+
+// Account.belongsTo(User, {
+//   foreignKey: 'user_id',
+// });
 
 // Account - Transaction relation is one to many
 Account.hasMany(Transaction, {
@@ -24,6 +45,7 @@ Account.hasMany(Transaction, {
 
 Transaction.belongsTo(Account, {
   foreignKey: 'account_id',
+  onDelete: 'CASCADE',
 });
 
 // Category - Transaction relation is one to many
@@ -34,6 +56,7 @@ Category.hasMany(Transaction, {
 
 Transaction.belongsTo(Category, {
   foreignKey: 'category_id',
+  onDelete: 'CASCADE',
 });
 
 // User - Budget relation is one to many
@@ -74,4 +97,5 @@ module.exports = {
   Expenses,
   Goal,
   Transaction,
+  Item,
 };

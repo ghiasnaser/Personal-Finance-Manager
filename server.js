@@ -8,8 +8,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const exphbs = require('express-handlebars');
 const helpers = require('./utils/helpers');
 const hbs = exphbs.create({ helpers });
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 3003;
 
 // Set up sessions
 const sess = {

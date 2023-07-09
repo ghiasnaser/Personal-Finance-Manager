@@ -12,24 +12,58 @@ Account.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    account_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+    account_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
-    account_type: {
-        type: DataTypes.STRING,
-        allowNull: false,
+    available: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    current: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    iso_currency_code: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    limit: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    unofficial_currency_code: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    mask: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    official_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     balance: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    user_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'user',
-          key: 'id',
-        },
+    item_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'item',
+        key: 'id',
+      },
     },
   },
   {
