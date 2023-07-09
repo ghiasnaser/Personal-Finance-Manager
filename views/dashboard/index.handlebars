@@ -21,10 +21,11 @@
     <div class=" bg-gray-100 p-4 shadow">
       <div class="flex items-center justify-between pb-2">
         <h2 class="text-xl font-bold mb-4">Budgeting</h2>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+        <button id="add_budget" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
           Add Budget
         </button>
       </div>
+      
       <hr  class="mb-2">
       
         <ul>
@@ -43,10 +44,10 @@
                 <p id="amount-{{budget.id}}"><span class="font-bold text-sm">Budget Amount:</span> ${{budget.amount}}</p>
               </div>
               <div class="grid grid-flow-row pl-40">
-                <button class="bg-red-500 hover:bg-red-700 text-white font-bold my-2 py-1 px-1 text-sm">
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold my-2 py-1 px-1 text-sm delete-budget-btn" data-budget-id="{{budget.id}}">
                   Delete
                 </button>
-                <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold my-2 py-1 px-1 text-sm">
+                <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold my-2 py-1 px-1 text-sm edit-budget-btn" data-budget-id="{{budget.id}}">
                   Edit
                 </button>
               </div>
@@ -58,6 +59,11 @@
           {{/each}}
           <!-- Add more budget items as needed -->
         </ul>
+        <div id="addBudgetpopupWindow" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white rounded p-4">
+              <!-- Form inputs go here -->
+            </div>
+      </div>
       <canvas id="myChart"></canvas>
       <!-- Add budgeting content here -->
     </div>
@@ -97,10 +103,10 @@
             </div>
             {{/each}}
           </div>
-          <div id="popupWindow" class="fixed inset-0 items-center justify-center bg-black bg-opacity-50 hidden">
-            <form id="editGoalForm" class="bg-white rounded p-4">
+          <div id="editGoalpopupWindow" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white rounded p-4">
               <!-- Form inputs go here -->
-            </form>
+            </div>
           </div>
           <!-- Add new goal form -->
           <div class="mt-8">
