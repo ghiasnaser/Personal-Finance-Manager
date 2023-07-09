@@ -2,6 +2,7 @@ const userRouter = require('express').Router();
 const { User } = require('../../models');
 
 userRouter.route('/login').post(async (req, res) => {
+  console.log(req.body);
   try {
     const userData = await User.findOne({
       where: { email: req.body.email },
@@ -16,7 +17,11 @@ userRouter.route('/login').post(async (req, res) => {
       res.status(400).json({ message: 'Incorrect Password' });
       return;
     }
-    req.session.save(() => {
+
+    req.session.save((err) => {
+      if (err) {
+        console.log(err);
+      }
       const user = userData.get({ plain: true });
       delete user.password;
       req.session.user = user;

@@ -55,7 +55,7 @@ Account.init(
     },
     balance: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
+      allowNull: true,
     },
     item_id: {
       type: DataTypes.INTEGER,
@@ -72,6 +72,20 @@ Account.init(
     freezeTableName: true,
     underscored: true,
     modelName: 'account',
+    hooks: {
+      beforeBulkCreate: async (accounts) => {
+        const newAccounts = [];
+        for (const account of accounts) {
+          account.balance = account.available || account.current || 0;
+          newAccounts.push(account);
+        }
+        return newAccounts;
+      },
+      beforeCreate: async (account) => {
+        account.balance = account.available || account.current || 0;
+        return account;
+      },
+    },
   }
 );
 

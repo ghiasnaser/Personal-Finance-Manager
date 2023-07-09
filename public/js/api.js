@@ -28,7 +28,7 @@ class ApiFunctions {
     return data;
   }
 
-  async loginUser(email, password) {
+  async loginUser({email, password}) {
     const data = await this.api.post('/users/login', { email, password });
     return data;
   }

@@ -2,140 +2,31 @@ const router = require('express').Router();
 const plaidClient = require('../../config/plaid');
 const { Account, User, Item, Transaction, Category } = require('../../models');
 const { Products, CountryCode } = require('plaid');
+const plaidHelpers = require('../../utils/plaid');
 
 router.post('/set-transactions', async (req, res) => {
   if (!req?.session?.loggedIn) return res.status(401).json('Not logged in');
 
-  const today = new Date();
+  const transactions = await plaidHelpers.setTransactions(
+    req?.session?.user?.id
+  );
+  if (!transactions)
+    return res.status(500).json({ message: 'Error setting transactions' });
 
-  try {
-    const itemData = await Item.findAll({
-      where: {
-        user_id: req?.session?.user?.id,
-      },
-      order: [['createdAt', 'DESC']],
-    });
-
-    const transactionsData = await plaidClient.transactionsGet(
-      {
-        access_token: itemData[0].dataValues.access_token,
-        start_date: `${today.getFullYear() - 1}-${today
-          .getMonth()
-          .toString()
-          .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`,
-        end_date: `${today.getFullYear()}-${(today.getMonth() + 1)
-          .toString()
-          .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`,
-      },
-      {
-        count: 250,
-        offset: 0,
-      }
-    );
-
-    const transactions = transactionsData.data.transactions;
-
-    transactions.forEach(async (transaction) => {
-      const account = (
-        await Account.findOne({
-          where: {
-            account_id: transaction.account_id,
-          },
-        })
-      ).get({ plain: true });
-
-      const category = (
-        await Category.findOne({
-          where: {
-            category_id: transaction.category_id,
-          },
-        })
-      )?.get({ plain: true });
-
-      await Transaction.create({
-        account_id: account.id,
-        date: transaction?.date,
-        amount: transaction?.amount,
-        name: transaction?.name,
-        merchant: transaction?.merchant_name,
-        category_id: category?.id,
-        transaction_id: transaction?.transaction_id,
-      });
-    });
-
-    res.json(transactions);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  res.json(transactions);
 });
 
 router.post('/set-recurring-transactions', async (req, res) => {
   const { itemId } = req.body;
+  const { id } = req?.session?.user;
 
-  const user = (
-    await User.findByPk(req?.session?.user?.id, {
-      include: [
-        {
-          model: Item,
-          include: [{ model: Account }],
-          where: {
-            item_id: itemId,
-          },
-        },
-      ],
-    })
-  )?.get({ plain: true });
-
-  if (!user)
-    return res.status(404).json({ message: 'No user found', data: null });
-
-  const access_token = user.items[0].access_token;
-
-  const account_ids = user.items[0].accounts.map(
-    (account) => account.account_id
+  const setReccuringTransactions = await plaidHelpers.setReccuringTransactions(
+    id,
+    itemId
   );
 
-  const recurringTransactions = await plaidClient.transactionsRecurringGet({
-    access_token,
-    account_ids,
-  });
-
-  const { data } = recurringTransactions;
-
-  const formatedTransactions = data?.outflow_streams.map(
-    async (transaction) => {
-      const account = (
-        await Account.findOne({
-          where: {
-            account_id: transaction.account_id,
-          },
-        })
-      )?.get({ plain: true });
-
-      const category = (
-        await Category.findOne({
-          where: {
-            category_id: transaction.category_id,
-          },
-        })
-      )?.get({ plain: true });
-      const transactionData = {
-        transaction_id: transaction.transaction_ids[0],
-        account_id: account.id,
-        amount: transaction.average_amount.amount,
-        category_id: category.id,
-        date: transaction.last_date,
-        name: transaction.description,
-        merchant: transaction.merchant_name || transaction.description,
-        reccuring: true,
-      };
-      // console.log(transactionData);
-      return transactionData;
-    }
-  );
-  formatedTransactions.forEach(async (transaction) => {
-    await Transaction.create(await transaction);
-  });
+  if (!setReccuringTransactions)
+    return res.status(500).json({ message: 'Error setting transactions' });
 
   res.json('Reccuring transactions created');
 });
@@ -221,7 +112,6 @@ router.post('/set-accounts', async (req, res) => {
 
     res.json(accounts);
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 });
@@ -245,13 +135,12 @@ router.post('/exchange-public-token', async (req, res) => {
 
     res.json({ public_token_exchange: 'complete', item_id });
   } catch (error) {
-    // handle error
     console.error(error);
+    res.status(500).json(error);
   }
 });
 
 router.post('/get-link-token', async (req, res) => {
-  console.log(req.session);
   const request = {
     user: {
       client_user_id: req?.session?.user?.id + '',
@@ -265,10 +154,8 @@ router.post('/get-link-token', async (req, res) => {
   try {
     const response = await plaidClient.linkTokenCreate(request);
     const linkToken = response.data.link_token;
-    console.log(response);
     res.json({ linkToken });
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 });

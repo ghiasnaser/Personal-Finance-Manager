@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
+const sequelize = require('../../config/connection');
 const devRouteBlocker = require('../../middleware/devRouteBlocker');
 const { Transaction, User, Item, Account } = require('../../models');
-
 
 router.get('/reccuring', async (req, res) => {
   try {
