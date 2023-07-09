@@ -1,7 +1,7 @@
 class ApiFunctions {
   constructor() {
     this.api = axios.create({
-      baseURL: `${process.env.URL}/api`,
+      baseURL: `https://secret-wave-14791-042522c892db.herokuapp.com/api`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,7 +28,7 @@ class ApiFunctions {
     return data;
   }
 
-  async loginUser({email, password}) {
+  async loginUser({ email, password }) {
     const data = await this.api.post('/users/login', { email, password });
     return data;
   }
