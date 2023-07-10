@@ -1,37 +1,51 @@
 const router = require('express').Router();
-const { Budget,Expenses,Transaction,sequelize  } = require('../../models');
+const { Budget,Expenses,Transaction,Category,sequelize  } = require('../../models');
 
 
-// Route to get the amount spent on a specific budget
-router.get('/budget/:id/amount-spent', async (req, res) => {
+  // Route to get all transactions related to a budget for the current user
+router.get('/budgets/:budgetId/transactions', async (req, res) => {
   try {
-    const budgetId = req.params.id;
-    console.log(budgetId);
+    // Get the current user ID from the session or authentication middleware
+    const userId = req.session.user.id; // Adjust this based on your authentication setup
 
-    // Find the budget by ID
-    const budget = await Budget.findByPk(budgetId, {
+    // Get the budget ID from the request parameters
+    const budgetId = req.params.budgetId;
+
+    // Find the budget belonging to the current user
+   /* const budget = await Budget.findAll({
+      where: { id: budgetId, user_id: userId },
+      include: {
+        model: Transaction,
+        through: Expenses,
+        include: Category,
+      },
+    });*/
+    const transactions = await Transaction.findAll({
       include: [
         {
-          model: Transaction,
-          through: Expenses,
+          model: Budget,
+          through: { attributes: [] }, // Exclude join table attributes
+          where: { id: budgetId }, // Filter by current budget ID
+          required: true, // Perform an inner join
         },
       ],
     });
-    const sanitizedBudget = {
-      ...budget.dataValues,
-      transactions: budget.transactions.map(transaction => transaction.dataValues)
-    };
-    console.log(sanitizedBudget);
-    if (!budget) {
-      return res.status(404).json({ error: 'no transcation founded under this budget' });
+    if (!transactions) {
+      return res.status(404).json({ error: 'Budget not found' });
     }
-    return res.json(budget);
+    res.json(transactions);
+
+    
+    console.log(transactions);
+   // const transactions = budget.transactions;
+    //console.log(transactions);
+    //res.json(transactions);
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to calculate amount spent on budget' });
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
-
+  
 router.get('/', async (req, res) => {
     try {
         const userData = await Expenses.findAll();

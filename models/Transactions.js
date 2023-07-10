@@ -12,10 +12,10 @@ Transaction.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    transaction_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+   // transaction_id: {
+     // type: DataTypes.STRING,
+     // allowNull: true,
+    //},
     date: {
       type: DataTypes.DATE,
       allowNull: false,
