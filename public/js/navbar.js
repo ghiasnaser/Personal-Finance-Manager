@@ -8,7 +8,6 @@ const initNavbar = () => {
 
   if (profileMenuBtn) {
     profileMenuBtn.addEventListener('click', () => {
-      console.log(profileMenuBtn.getAttribute('aria-expanded'));
       if (profileMenuBtn.getAttribute('aria-expanded') === 'true') {
         profileMenuBtn.setAttribute('aria-expanded', 'false');
         profileMenuLinks.querySelectorAll('a').forEach((link) => {

@@ -5,6 +5,60 @@ class PlaidHelpers {
     this.plaid = require('../config/plaid.js');
   }
 
+  async updateAccounts(user_id) {
+    const user = await User.findByPk(user_id, {
+      include: [{ model: Item, include: [{ model: Account }] }],
+    });
+
+    if (!user) return false;
+
+    const { items } = user;
+
+    try {
+      items.forEach(async (item) => {
+        const access_token = item.dataValues.access_token;
+        const accounts = await this.plaid.accountsGet({
+          access_token,
+        });
+
+        accounts.data.accounts.forEach(async (account) => {
+          const accountData = {
+            account_id: account.account_id,
+            mask: account.mask,
+            name: account.name,
+            official_name: account.official_name,
+            type: account.type,
+            subtype: account.subtype,
+            available: account.balances.available || 0,
+            current: account.balances.current || 0,
+            limit: account.balances.limit,
+            unofficial_currency_code: account.balances.unofficial_currency_code,
+            user_id: user.id,
+          };
+
+          const accountExists = await Account.findOne({
+            where: {
+              account_id: account.account_id,
+            },
+          });
+
+          if (!accountExists) {
+            await Account.create(accountData);
+          } else {
+            await Account.update(accountData, {
+              where: {
+                account_id: account.account_id,
+              },
+            });
+          }
+        })
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   async setTransactions(user_id) {
     const today = new Date();
     try {
