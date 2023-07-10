@@ -11,6 +11,51 @@ const {
 } = require('../models');
 const plaidHelpers = require('../utils/plaid');
 
+const calculateGoalProgress = async (userId) => {
+  // Get the user's saving accounts
+  const accounts = await Account.findAll({
+    where: {},
+    include: [
+      {
+        model: Item,
+        where: { user_id: userId },
+        include: [{ model: User }],
+      },
+    ],
+  });
+  // Calculate the total amounts in the saving accounts
+  var totalAmounts=0;
+  for (var i=0;i<accounts.length;i++){
+    if(accounts[i].available){
+      var amount=parseFloat(accounts[i].available);
+      totalAmounts+=amount;
+    }
+  }  
+  // Fetch all the goals for the user
+  const goals = await Goal.findAll({
+    where: { user_id: userId },
+    order: [['Deadline', 'ASC']], // Sort the goals by deadline in ascending order
+  });
+  console.log(goals);
+  // Calculate the progress for each goal based on the total amounts
+  goals.forEach((goal) => {
+    if (totalAmounts>0 && (totalAmounts / goal.target_amount)>1){
+      goal.current_progress=100;
+      totalAmounts-=goal.target_amount;
+    }
+    else if (totalAmounts>0 && (totalAmounts / goal.target_amount)<1){
+      goal.current_progress=(totalAmounts / goal.target_amount)*100;
+      totalAmounts=0;
+    }
+    else{
+      goal.current_progress=0;
+    }
+    // Save the updated progress for the goal
+    goal.save();
+  });
+};
+
+
 // Use authWall middleware to prevent access to route and renders a page that requests the user to login or sign up
 
 router.use(authWall); // Comment this out to disable authWall and test out pages
@@ -198,8 +243,6 @@ router.post('/goals', async (req, res) => {
   try {
     const currentUser = req.session.user;
     const { goal_name, deadline } = req.body;
-    console.log('adding a goal 111111111111111111111111111111111111111111111111111111111111111111111111111111111');
-    console.log(req.body);
     const targetAmount = parseFloat(req.body.target_amount);
     // Create a new goal with the provided data and associate it with the current user
     const newGoal = await Goal.create({
@@ -209,9 +252,10 @@ router.post('/goals', async (req, res) => {
       current_progress: 0,
       user_id: currentUser.id,
     });
-
+    await calculateGoalProgress(currentUser.id);
     // Send a success response
     res.status(200).json({ message: 'New goal created successfully' });
+    
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to create a new goal' });

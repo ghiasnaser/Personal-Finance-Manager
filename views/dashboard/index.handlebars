@@ -92,7 +92,7 @@
             <div id="goalsContainer" class="bg-white rounded shadow p-4">
               <h2 class="text-xl font-bold mb-2">{{goal.goal_name}}</h2>
               <p class="mb-4">Target Amount: ${{goal.target_amount}}</p>
-              <p class="mb-4">Current Progress: ${{goal.current_progress}}</p>
+              <p class="mb-4">Current Progress: %{{goal.current_progress}}</p>
               <p class="mb-4">Deadline: {{format_date goal.Deadline}}</p>
               <div class="flex justify-end">
                 <!-- Edit and delete buttons -->

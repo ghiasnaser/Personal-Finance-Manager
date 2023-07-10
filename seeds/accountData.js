@@ -14,6 +14,7 @@ const accountData = [
     official_name: 'Plaid Silver Standard 0.1% Interest Saving',
     type: 'savings',
     item_id: 1,
+     
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ const accountData = [
     item_id: 1,
     official_name: 'Plaid Bronze Standard 0.2% Interest CD',
     type: 'cd',
+     
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ const accountData = [
     official_name: 'Plaid Diamond 12.5% APR Interest Credit Card',
     type: 'credit card',
     item_id: 1,
+     
   },
   {
     id: 4,
@@ -56,6 +59,7 @@ const accountData = [
     official_name: 'Plaid Platinum Standard 1.85% Interest Money Market',
     type: 'money market',
     item_id: 1,
+     
   },
   {
     id: 5,
@@ -70,6 +74,7 @@ const accountData = [
     official_name: null,
     type: 'ira',
     item_id: 1,
+     
   },
   {
     id: 6,
@@ -84,6 +89,7 @@ const accountData = [
     official_name: null,
     type: '401k',
     item_id: 1,
+     
   },
   {
     id: 7,
@@ -98,6 +104,7 @@ const accountData = [
     official_name: null,
     type: 'student',
     item_id: 1,
+     
   },
   {
     id: 8,
@@ -112,6 +119,7 @@ const accountData = [
     official_name: null,
     type: 'mortgage',
     item_id: 1,
+     
   },
 ];
 

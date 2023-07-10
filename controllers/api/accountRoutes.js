@@ -38,6 +38,8 @@ accountRouter
         ...req.body,
         user_id: req.session.user.id,
       });
+      console.log('heloooooooooooooooooooohelooooooooooooooooooooooooooooooooooooooo');
+      console.log(req.session.user.id);
       res
         .status(200)
         .json({ message: 'New Account Created', data: newAccount });
