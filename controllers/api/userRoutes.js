@@ -1,19 +1,62 @@
 const userRouter = require('express').Router();
-const { User } = require('../../models');
+const { User,Goal,Account,Item } = require('../../models');
 const plaidHelpers = require('../../utils/plaid');
+const calculateGoalProgress = async (userId) => {
+  // Get the user's saving accounts
+  const accounts = await Account.findAll({
+    where: {},
+    include: [
+      {
+        model: Item,
+        where: { user_id: userId },
+        include: [{ model: User }],
+      },
+    ],
+  });
+  // Calculate the total amounts in the saving accounts
+  var totalAmounts=0;
+  for (var i=0;i<accounts.length;i++){
+    if(accounts[i].available){
+      var amount=parseFloat(accounts[i].available);
+      totalAmounts+=amount;
+    }
+  }  
+  // Fetch all the goals for the user
+  const goals = await Goal.findAll({
+    where: { user_id: userId },
+    order: [['Deadline', 'ASC']], // Sort the goals by deadline in ascending order
+  });
+  console.log(goals);
+  // Calculate the progress for each goal based on the total amounts
+  goals.forEach((goal) => {
+    if (totalAmounts>0 && (totalAmounts / goal.target_amount)>1){
+      goal.current_progress=100;
+      totalAmounts-=goal.target_amount;
+    }
+    else if (totalAmounts>0 && (totalAmounts / goal.target_amount)<1){
+      goal.current_progress=(totalAmounts / goal.target_amount)*100;
+      totalAmounts=0;
+    }
+    else{
+      goal.current_progress=0;
+    }
+    // Save the updated progress for the goal
+    goal.save();
+  });
+};
+
 
 userRouter.route('/login').post(async (req, res) => {
   try {
     const userData = await User.findOne({
       where: { email: req.body.email },
     });
-
     if (!userData) {
       res.status(400).json({ message: 'Incorrect Email. Please Sign Up' });
       return;
     }
     const validPassword = await userData.checkPassword(req.body.password);
-
+    calculateGoalProgress(userData.id);
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect Password' });
       return;
