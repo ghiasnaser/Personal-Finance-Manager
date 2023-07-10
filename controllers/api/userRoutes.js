@@ -1,6 +1,6 @@
 const userRouter = require('express').Router();
 const { User,Goal,Account,Item } = require('../../models');
-
+const plaidHelpers = require('../../utils/plaid');
 const calculateGoalProgress = async (userId) => {
   // Get the user's saving accounts
   const accounts = await Account.findAll({
@@ -51,7 +51,6 @@ userRouter.route('/login').post(async (req, res) => {
     const userData = await User.findOne({
       where: { email: req.body.email },
     });
-    
     if (!userData) {
       res.status(400).json({ message: 'Incorrect Email. Please Sign Up' });
       return;
