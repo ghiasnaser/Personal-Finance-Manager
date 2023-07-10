@@ -13,7 +13,7 @@ const hbsMiddleware = (req, res, next) => {
   const links = [
     { href: '/', text: 'Home' },
     { href: '/dashboard', text: 'Dashboard' },
-    { href: '/dashboard/payments', text: 'Payments' },
+    { href: '/dashboard/transactions', text: 'Transactions' },
     { href: '/dashboard/recurring', text: 'Recurring' },
     { href: '/dashboard/accounts', text: 'Accounts' },
   ];

@@ -1,7 +1,8 @@
 class ApiFunctions {
   constructor() {
     this.api = axios.create({
-      baseURL: `https://secret-wave-14791-042522c892db.herokuapp.com/api`,
+      baseURL: `http://localhost:3003/api`,
+      // baseURL: `https://secret-wave-14791-042522c892db.herokuapp.com/api`,
       headers: {
         'Content-Type': 'application/json',
       },

@@ -1,8 +1,8 @@
 <main>
-  Payments
-  <div class='m-auto before:content-["Cash"]' style='width: 1000px;'><canvas
-      id='transactions'
-    ></canvas></div>
+  <h2
+    class='text-center font-serif text-3xl font-semibold text-slate-950'
+  >Transactions Breakdown</h2>
+  <div class='m-auto w-full'><canvas id='transactions'></canvas></div>
   <section class='grid grid-cols-1 gap-5 px-5 sm:grid-cols-3'>
     {{#each categoryGroups}}
       <section

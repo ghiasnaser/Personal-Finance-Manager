@@ -27,10 +27,9 @@ const initLink = async () => {
       try {
         await api.setReccuringTransactions(item_id);
       } catch (err) {
+        localStorage.setItem('recurringError', JSON.stringify({ value: true, item_id: item_id }));
         alert('Error setting recurring transactions. try again later');
-        // console.log(err);
       }
-      // await api.setReccuringTransactions(item_id)
 
       document.location.reload();
     },

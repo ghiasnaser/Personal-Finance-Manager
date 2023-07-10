@@ -19,6 +19,7 @@ router.post('/set-transactions', async (req, res) => {
 router.post('/set-recurring-transactions', async (req, res) => {
   const { itemId } = req.body;
   const { id } = req?.session?.user;
+  console.log(itemId, id);
 
   const setReccuringTransactions = await plaidHelpers.setReccuringTransactions(
     id,

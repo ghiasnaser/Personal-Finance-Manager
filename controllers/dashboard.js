@@ -26,9 +26,11 @@ router.get('/', async (req, res) => {
       },
       include: { model: Budget },
     });
+
     const userData = data1.map((user) => {
       return user.get({ plain: true });
     });
+    
     const budegetData = userData[0].budgets;
 
     // get the goals of the user
@@ -72,7 +74,7 @@ router.get('/accounts', async (req, res) => {
 });
 
 // transactions page for viewing transactions (By category / date range)
-router.use('/payments', async (req, res) => {
+router.use('/transactions', async (req, res) => {
   const user = await User.findByPk(req?.session?.user?.id, {
     include: [
       {
@@ -145,7 +147,7 @@ router.use('/payments', async (req, res) => {
       transactions.reduce((a, b) => a + parseInt(b.amount), 0) / 100
   );
 
-  res.render('dashboard/payments', {
+  res.render('dashboard/transactions', {
     transactions: ordered,
     dates,
     amounts,
@@ -198,7 +200,9 @@ router.post('/goals', async (req, res) => {
   try {
     const currentUser = req.session.user;
     const { goal_name, deadline } = req.body;
-    console.log('adding a goal 111111111111111111111111111111111111111111111111111111111111111111111111111111111');
+    console.log(
+      'adding a goal 111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+    );
     console.log(req.body);
     const targetAmount = parseFloat(req.body.target_amount);
     // Create a new goal with the provided data and associate it with the current user

@@ -85,13 +85,15 @@ class PlaidHelpers {
   }
 
   async setReccuringTransactions(user_id, item_id) {
-    const user = (
-      await User.findByPk(user_id, {
-        include: [
-          { model: Item, where: { item_id }, include: [{ model: Account }] },
-        ],
-      })
-    )?.get({ plain: true });
+    const user = await User.findByPk(user_id, {
+      include: [
+        {
+          model: Item,
+          where: { item_id: item_id },
+          include: [{ model: Account }],
+        },
+      ],
+    });
 
     if (!user) return false;
 
