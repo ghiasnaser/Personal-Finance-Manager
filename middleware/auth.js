@@ -7,6 +7,14 @@ const withAuth = (req, res, next) => {
   }
 };
 
+const isLoggedIn = (req, res, next) => {
+  if (req.session.loggedIn) {
+    res.redirect('/dashboard');
+  } else {
+    next();
+  }
+}
+
 // Middleware to prevent access to routes and renders a page that requests the user to login or sign up
 const authWall = (req, res, next) => {
   if (!req?.session?.loggedIn) {
@@ -16,4 +24,4 @@ const authWall = (req, res, next) => {
   next();
 };
 
-module.exports = { withAuth, authWall };
+module.exports = { withAuth, authWall, isLoggedIn };

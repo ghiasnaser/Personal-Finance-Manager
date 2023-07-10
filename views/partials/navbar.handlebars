@@ -29,7 +29,7 @@
           {{> logo}}
         </div>
         <div class='hidden md:ml-6 md:block'>
-          <div class='flex space-x-4'>
+          <div class='flex my-auto space-x-4'>
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             {{#each links}}
               {{#if active}}
@@ -96,22 +96,24 @@
               tabindex='-1'
             >
               <a
-                href='/dashboard'
-                class='profile-dropdown-links'
+                {{!-- href='/dashboard' --}}
+                class='profile-dropdown-links line-through bg-gray-100'
+                title="Currently not available"
                 role='menuitem'
                 tabindex='-1'
                 id='user-menu-item-0'
               >Your Profile</a>
               <a
-                href='/dashboard/settings'
-                class='profile-dropdown-links'
+                {{!-- href='/dashboard/settings' --}}
+                class='profile-dropdown-links line-through  bg-gray-100'
+                title="Currently not available"
                 role='menuitem'
                 tabindex='-1'
                 id='user-menu-item-1'
               >Settings</a>
               <button
-                
-                class='profile-dropdown-links'
+                onclick="logout()"
+                class='profile-dropdown-links w-full text-left'
                 role='menuitem'
                 tabindex='-1'
                 id='logout-btn'
@@ -149,6 +151,14 @@
     </div>
   </div>
   <script src='/js/navbar.js'></script>
-  <script src='/js/logout.js'></script>
-
+  <script>
+    async function logout() {
+      const response = await api.logoutUser();
+      if (response.status === 204) {
+        document.location.replace('/');
+      } else {
+        alert(response.statusText);
+      }
+    };
+  </script>
 </nav>
