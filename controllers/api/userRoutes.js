@@ -1,26 +1,37 @@
 const userRouter = require('express').Router();
 const { User } = require('../../models');
+const plaidHelpers = require('../../utils/plaid');
 
 userRouter.route('/login').post(async (req, res) => {
-  console.log(req.body);
   try {
     const userData = await User.findOne({
       where: { email: req.body.email },
     });
-    console.log(userData);
+
     if (!userData) {
-      res.status(400).json({ message: 'Incorrect Email' });
+      res.status(400).json({ message: 'Incorrect Email. Please Sign Up' });
       return;
     }
     const validPassword = await userData.checkPassword(req.body.password);
+
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect Password' });
       return;
     }
 
+    try {
+      const updateAccounts = await plaidHelpers.updateAccounts(
+        userData.dataValues.id
+      );
+    } catch (error) {
+      // console.log(error);
+      // res.status(400).json({ message: 'Error Updating Accounts' });
+    }
+
     req.session.save((err) => {
       if (err) {
-        console.log(err);
+        res.status(500).json({ message: 'Error Saving Session' });
+        return;
       }
       const user = userData.get({ plain: true });
       delete user.password;

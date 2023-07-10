@@ -66,7 +66,6 @@ router.put('/update-accounts', async (req, res) => {
           },
         }
       );
-      console.log(updateAccount);
     });
 
     res.json(accounts);
@@ -84,8 +83,6 @@ router.post('/set-accounts', async (req, res) => {
       },
       order: [['createdAt', 'DESC']],
     });
-
-    console.log(itemData[0].dataValues);
 
     const accountsData = await plaidClient.accountsGet({
       access_token: itemData[0].dataValues.access_token,
@@ -107,7 +104,6 @@ router.post('/set-accounts', async (req, res) => {
         item_id: itemData[0].dataValues.id,
         type: account?.subtype,
       });
-      console.log(createAccount);
     });
 
     res.json(accounts);
@@ -135,7 +131,6 @@ router.post('/exchange-public-token', async (req, res) => {
 
     res.json({ public_token_exchange: 'complete', item_id });
   } catch (error) {
-    console.error(error);
     res.status(500).json(error);
   }
 });
@@ -149,13 +144,15 @@ router.post('/get-link-token', async (req, res) => {
     products: [Products.Transactions],
     country_codes: [CountryCode.Us],
     language: 'en',
-    redirect_uri: `https://google.com`,
+    redirect_uri: `https://secret-wave-14791-042522c892db.herokuapp.com`,
   };
   try {
     const response = await plaidClient.linkTokenCreate(request);
+    console.log(response);
     const linkToken = response.data.link_token;
     res.json({ linkToken });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
