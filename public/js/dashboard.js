@@ -1,30 +1,30 @@
 
 // Get references to the buttons
 const budgetingBtn = document.getElementById("Budgeting");
-const expenseTrackingBtn = document.getElementById("Expense_Tracking");
+//const expenseTrackingBtn = document.getElementById("Expense_Tracking");
 const goalSettingBtn = document.getElementById("Goal_Setting");
-const incomeTrackingBtn = document.getElementById("Income_Tracking");
-const reportsAndAnalyticsBtn = document.getElementById("Reports_and_Analytics");
-const remindersAndNotificationsBtn = document.getElementById("Reminders_and_Notifications");
+//const incomeTrackingBtn = document.getElementById("Income_Tracking");
+//const reportsAndAnalyticsBtn = document.getElementById("Reports_and_Analytics");
+//const remindersAndNotificationsBtn = document.getElementById("Reminders_and_Notifications");
 const addBudgetBtn=document.getElementById("add_budget");
 // Get references to the sections
 const budgetingSection = document.getElementById("Budgeting_Section");
-const expenseTrackingSection = document.getElementById("Expense_Tracking_Section");
+//const expenseTrackingSection = document.getElementById("Expense_Tracking_Section");
 const goalSettingSection = document.getElementById("Goal_Setting_Section");
-const incomeTrackingSection = document.getElementById("Income_Tracking_Section");
-const reportsAnalyticsSection = document.getElementById("Reports_Analytics_Section");
-const remindersNotificationsSection = document.getElementById("Reminders_Notifications_Section");
+//const incomeTrackingSection = document.getElementById("Income_Tracking_Section");
+//const reportsAnalyticsSection = document.getElementById("Reports_Analytics_Section");
+//const remindersNotificationsSection = document.getElementById("Reminders_Notifications_Section");
 
 function showbudget(){
   budgetingSection.classList.remove("hidden");
-  expenseTrackingSection.classList.add("hidden");
+  //expenseTrackingSection.classList.add("hidden");
   goalSettingSection.classList.add("hidden");
-  incomeTrackingSection.classList.add("hidden");
-  reportsAnalyticsSection.classList.add("hidden");
-  remindersNotificationsSection.classList.add("hidden");
+  //incomeTrackingSection.classList.add("hidden");
+  //reportsAnalyticsSection.classList.add("hidden");
+  //remindersNotificationsSection.classList.add("hidden");
 
 }
-function showexpenses(){
+/*function showexpenses(){
   budgetingSection.classList.add("hidden");
   expenseTrackingSection.classList.remove("hidden");
   goalSettingSection.classList.add("hidden");
@@ -32,17 +32,17 @@ function showexpenses(){
   reportsAnalyticsSection.classList.add("hidden");
   remindersNotificationsSection.classList.add("hidden");
 
-}
+}*/
 function showgoals(){
   budgetingSection.classList.add("hidden");
-  expenseTrackingSection.classList.add("hidden");
+  //expenseTrackingSection.classList.add("hidden");
   goalSettingSection.classList.remove("hidden");
-  incomeTrackingSection.classList.add("hidden");
-  reportsAnalyticsSection.classList.add("hidden");
-  remindersNotificationsSection.classList.add("hidden");
+  //incomeTrackingSection.classList.add("hidden");
+  //reportsAnalyticsSection.classList.add("hidden");
+  //remindersNotificationsSection.classList.add("hidden");
 
 }
-function showincome(){
+/*function showincome(){
   budgetingSection.classList.add("hidden");
   expenseTrackingSection.classList.add("hidden");
   goalSettingSection.classList.add("hidden");
@@ -68,7 +68,7 @@ function showreminder(){
   reportsAnalyticsSection.classList.add("hidden");
   remindersNotificationsSection.classList.remove("hidden");
 
-}
+}*/
 
 // Add click event listeners to the buttons
 budgetingBtn.addEventListener("click", () => {
@@ -76,19 +76,19 @@ budgetingBtn.addEventListener("click", () => {
   // Save the active section to local storage
   localStorage.setItem("activeSection", "budgetingSection");
 });
-
+/*
 expenseTrackingBtn.addEventListener("click", () => {
   showexpenses();
   // Save the active section to local storage
   localStorage.setItem("activeSection", "expenseTrackingSection");
-});
+});*/
 
 goalSettingBtn.addEventListener("click", () => {
   showgoals();
   // Save the active section to local storage
   localStorage.setItem("activeSection", "goalSettingSection");
 });
-
+/*
 incomeTrackingBtn.addEventListener("click", () => {
   showincome();
   // Save the active section to local storage
@@ -106,30 +106,29 @@ remindersAndNotificationsBtn.addEventListener("click", () => {
   // Save the active section to local storage
   localStorage.setItem("activeSection", "remindersNotificationsSection");
 });
-
+*/
 const activeSection = localStorage.getItem("activeSection");
-console.log(activeSection);
 window.addEventListener('load', function(){
 if (activeSection) {
   switch (activeSection) {
     case "budgetingSection":
       showbudget();
       break;
-    case "expenseTrackingSection":
-      showexpenses();
-      break;
+    //case "expenseTrackingSection":
+      //showexpenses();
+      //break;
     case "goalSettingSection":
       showgoals();
       break;
-    case "incomeTrackingSection":
-      showincome();
-      break;
-    case "reportsAnalyticsSection":
-      showreport();
-      break;
-    case "remindersNotificationsSection":
-      showreminder();
-      break;
+ //   case "incomeTrackingSection":
+   //   showincome();
+     // break;
+//    case "reportsAnalyticsSection":
+  //    showreport();
+    //  break;
+//    case "remindersNotificationsSection":
+  //    showreminder();
+    //  break;
     default:
   }
 }
