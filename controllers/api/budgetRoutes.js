@@ -1,5 +1,29 @@
 const router = require('express').Router();
 const Budget = require('../../models/Budgets');
+const User =require('../../models/User');
+
+router.get('/', async (req, res) => {
+  try {
+    // get the budgets of the user
+    const currentUser = req.session.user;
+    const data1 = await User.findAll({
+      where: {
+        id: currentUser.id,
+      },
+      include: { model: Budget },
+    });
+    const userData = data1.map((user) => {
+      return user.get({ plain: true });
+    });
+    const budegetData = userData[0].budgets;
+
+    res.json(budegetData);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to fetch user data' });
+  }
+});
+
 
 // GET route for retrieving a specific budget
 router.get('/:id', async (req, res) => {
