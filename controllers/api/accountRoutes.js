@@ -20,7 +20,6 @@ accountRouter
     const plainAccounts = accounts.map((account) =>
       account.get({ plain: true })
     );
-    console.log(plainAccounts);
    /* res.render('dashboard/index', {
       ...plainAccounts,
       logged_in: true
@@ -38,8 +37,6 @@ accountRouter
         ...req.body,
         user_id: req.session.user.id,
       });
-      console.log('heloooooooooooooooooooohelooooooooooooooooooooooooooooooooooooooo');
-      console.log(req.session.user.id);
       res
         .status(200)
         .json({ message: 'New Account Created', data: newAccount });

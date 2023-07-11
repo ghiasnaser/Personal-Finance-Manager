@@ -3,7 +3,6 @@
 async function fetchBudgets() {
   const budgets = await fetch(`api/budgets`);
   const budgetArr = await budgets.json();
-  console.log(budgetArr);
   return budgetArr;
 }
 
@@ -18,15 +17,12 @@ async function fetchExpenses(id) {
     }
 
     const transactions = await response.json();
-    //console.log(data);
     //const transactions = data.transactions;
-    console.log(transactions);
 
     var spending = [];
     for (var j = 0; j < transactions.length; j++) {
       spending.push(transactions[j].amount);
     }
-    console.log(spending);
 
     return spending;
   } catch (error) {
@@ -39,9 +35,7 @@ async function drawChart() {
   var budegts = await fetchBudgets();
   for (var i = 0; i < budegts.length; i++) {
     budgetID = budegts[i].id;
-    console.log(budgetID);
     const spending = await fetchExpenses(budgetID);
-    console.log(spending);
     const ctx = document.getElementById(`myChart-${budgetID}`);
     const startDateParts = document
       .getElementById(`start-${budgetID}`)

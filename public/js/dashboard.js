@@ -189,7 +189,6 @@ async function deleteGoal(goalId) {
 
     if (response.ok) {
       // Handle the success response
-      console.log('Goal deleted successfully');
       location.reload();
       // Perform any additional actions, such as updating the UI
     } else {
@@ -214,8 +213,6 @@ document.addEventListener('click', async (event) => {
 async function fetchGoalData(goalId) {
   const response = await fetch(`/api/goals/${goalId}`);
   if (response.ok) {
-    console.log(response);
-    console.log(typeof response);
     const goalData = await response.json();
     const updatedGoalData = {
       ...goalData,
@@ -492,7 +489,6 @@ async function deleteBudget(budgetID) {
 
     if (response.ok) {
       // Handle the success response
-      console.log('Goal deleted successfully');
       location.reload();
       // Perform any additional actions, such as updating the UI
     } else {
@@ -643,14 +639,11 @@ async function editBudgetForm(budgetData) {
 
 async function editBudget(budgetID) {
   const budgetData = await fetchBudgetData(budgetID);
-  console.log('2 edit');
   editBudgetForm(budgetData);
-  console.log('3 edit');
 }
 
 document.addEventListener('click', async (event) => {
   if (event.target.matches('.delete-budget-btn')) {
-    console.log(event.target.dataset.budgetId);
     const budgetID = event.target.dataset.budgetId;
     deleteBudget(budgetID);
   } else if (event.target.matches('.edit-budget-btn')) {

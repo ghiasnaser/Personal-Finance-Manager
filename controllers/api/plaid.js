@@ -148,11 +148,9 @@ router.post('/get-link-token', async (req, res) => {
   };
   try {
     const response = await plaidClient.linkTokenCreate(request);
-    console.log(response);
     const linkToken = response.data.link_token;
     res.json({ linkToken });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
