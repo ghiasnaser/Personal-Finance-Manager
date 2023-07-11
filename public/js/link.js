@@ -4,7 +4,7 @@ const initLink = async () => {
     onLoad: function () {},
     onSuccess: async (publicToken, metadata) => {
       const { item_id } = await api.exchangePublicToken(publicToken, metadata);
-      
+
       // Set All Accounts to the database
       await api.setAccounts(item_id);
 

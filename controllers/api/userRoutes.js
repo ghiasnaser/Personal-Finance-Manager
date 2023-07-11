@@ -26,7 +26,6 @@ const calculateGoalProgress = async (userId) => {
     where: { user_id: userId },
     order: [['Deadline', 'ASC']], // Sort the goals by deadline in ascending order
   });
-  console.log(goals);
   // Calculate the progress for each goal based on the total amounts
   goals.forEach((goal) => {
     if (totalAmounts>0 && (totalAmounts / goal.target_amount)>1){
@@ -67,8 +66,6 @@ userRouter.route('/login').post(async (req, res) => {
         userData.dataValues.id
       );
     } catch (error) {
-      // console.log(error);
-      // res.status(400).json({ message: 'Error Updating Accounts' });
     }
 
     req.session.save((err) => {
@@ -98,7 +95,6 @@ userRouter.route('/logout').post(async (req, res) => {
 });
 
 userRouter.route('/sign-up').post(async (req, res) => {
-  console.log(req.body);
   try {
     const newUser = await User.create(req.body);
     req.session.save(() => {

@@ -36,10 +36,6 @@ router.get('/budgets/:budgetId/transactions', async (req, res) => {
     res.json(transactions);
 
     
-    console.log(transactions);
-   // const transactions = budget.transactions;
-    //console.log(transactions);
-    //res.json(transactions);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });

@@ -58,7 +58,6 @@ router.post('/', async (req, res) => {
         // Extract the budget data from the request body
         const { name,start_date, end_date, amount } = req.body;
        // const currentUser = req.session.user;
-        console.log(req.session.user.id);
        const user_id = req.session.user.id;
         // Create a new budget object
         const newBudget = await Budget.create({

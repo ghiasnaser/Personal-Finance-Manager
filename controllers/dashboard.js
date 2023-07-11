@@ -36,7 +36,6 @@ const calculateGoalProgress = async (userId) => {
     where: { user_id: userId },
     order: [['Deadline', 'ASC']], // Sort the goals by deadline in ascending order
   });
-  console.log(goals);
   // Calculate the progress for each goal based on the total amounts
   goals.forEach((goal) => {
     if (totalAmounts > 0 && totalAmounts / goal.target_amount > 1) {

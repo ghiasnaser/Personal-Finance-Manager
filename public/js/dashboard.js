@@ -1,28 +1,26 @@
-
 // Get references to the buttons
-const budgetingBtn = document.getElementById("Budgeting");
+const budgetingBtn = document.getElementById('Budgeting');
 //const expenseTrackingBtn = document.getElementById("Expense_Tracking");
-const goalSettingBtn = document.getElementById("Goal_Setting");
+const goalSettingBtn = document.getElementById('Goal_Setting');
 //const incomeTrackingBtn = document.getElementById("Income_Tracking");
 //const reportsAndAnalyticsBtn = document.getElementById("Reports_and_Analytics");
 //const remindersAndNotificationsBtn = document.getElementById("Reminders_and_Notifications");
-const addBudgetBtn=document.getElementById("add_budget");
+const addBudgetBtn = document.getElementById('add_budget');
 // Get references to the sections
-const budgetingSection = document.getElementById("Budgeting_Section");
+const budgetingSection = document.getElementById('Budgeting_Section');
 //const expenseTrackingSection = document.getElementById("Expense_Tracking_Section");
-const goalSettingSection = document.getElementById("Goal_Setting_Section");
+const goalSettingSection = document.getElementById('Goal_Setting_Section');
 //const incomeTrackingSection = document.getElementById("Income_Tracking_Section");
 //const reportsAnalyticsSection = document.getElementById("Reports_Analytics_Section");
 //const remindersNotificationsSection = document.getElementById("Reminders_Notifications_Section");
 
-function showbudget(){
-  budgetingSection.classList.remove("hidden");
+function showbudget() {
+  budgetingSection.classList.remove('hidden');
   //expenseTrackingSection.classList.add("hidden");
-  goalSettingSection.classList.add("hidden");
+  goalSettingSection.classList.add('hidden');
   //incomeTrackingSection.classList.add("hidden");
   //reportsAnalyticsSection.classList.add("hidden");
   //remindersNotificationsSection.classList.add("hidden");
-
 }
 /*function showexpenses(){
   budgetingSection.classList.add("hidden");
@@ -33,14 +31,13 @@ function showbudget(){
   remindersNotificationsSection.classList.add("hidden");
 
 }*/
-function showgoals(){
-  budgetingSection.classList.add("hidden");
+function showgoals() {
+  budgetingSection.classList.add('hidden');
   //expenseTrackingSection.classList.add("hidden");
-  goalSettingSection.classList.remove("hidden");
+  goalSettingSection.classList.remove('hidden');
   //incomeTrackingSection.classList.add("hidden");
   //reportsAnalyticsSection.classList.add("hidden");
   //remindersNotificationsSection.classList.add("hidden");
-
 }
 /*function showincome(){
   budgetingSection.classList.add("hidden");
@@ -71,10 +68,10 @@ function showreminder(){
 }*/
 
 // Add click event listeners to the buttons
-budgetingBtn.addEventListener("click", () => {
+budgetingBtn.addEventListener('click', () => {
   showbudget();
   // Save the active section to local storage
-  localStorage.setItem("activeSection", "budgetingSection");
+  localStorage.setItem('activeSection', 'budgetingSection');
 });
 /*
 expenseTrackingBtn.addEventListener("click", () => {
@@ -83,10 +80,10 @@ expenseTrackingBtn.addEventListener("click", () => {
   localStorage.setItem("activeSection", "expenseTrackingSection");
 });*/
 
-goalSettingBtn.addEventListener("click", () => {
+goalSettingBtn.addEventListener('click', () => {
   showgoals();
   // Save the active section to local storage
-  localStorage.setItem("activeSection", "goalSettingSection");
+  localStorage.setItem('activeSection', 'goalSettingSection');
 });
 /*
 incomeTrackingBtn.addEventListener("click", () => {
@@ -107,32 +104,31 @@ remindersAndNotificationsBtn.addEventListener("click", () => {
   localStorage.setItem("activeSection", "remindersNotificationsSection");
 });
 */
-const activeSection = localStorage.getItem("activeSection");
-window.addEventListener('load', function(){
-if (activeSection) {
-  switch (activeSection) {
-    case "budgetingSection":
-      showbudget();
-      break;
-    //case "expenseTrackingSection":
+const activeSection = localStorage.getItem('activeSection');
+window.addEventListener('load', function () {
+  if (activeSection) {
+    switch (activeSection) {
+      case 'budgetingSection':
+        showbudget();
+        break;
+      //case "expenseTrackingSection":
       //showexpenses();
       //break;
-    case "goalSettingSection":
-      showgoals();
-      break;
- //   case "incomeTrackingSection":
-   //   showincome();
-     // break;
-//    case "reportsAnalyticsSection":
-  //    showreport();
-    //  break;
-//    case "remindersNotificationsSection":
-  //    showreminder();
-    //  break;
-    default:
+      case 'goalSettingSection':
+        showgoals();
+        break;
+      //   case "incomeTrackingSection":
+      //   showincome();
+      // break;
+      //    case "reportsAnalyticsSection":
+      //    showreport();
+      //  break;
+      //    case "remindersNotificationsSection":
+      //    showreminder();
+      //  break;
+      default:
+    }
   }
-}
-
 });
 
 function formatDate(date) {
@@ -141,7 +137,6 @@ function formatDate(date) {
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
-
 
 // adding goal to the user goals
 // Function to handle form submission
@@ -158,7 +153,7 @@ async function addGoal(event) {
     target_amount: targetAmount,
     goal_name: goalName,
   };
-  newGoal.deadline.setDate(newGoal.deadline.getDate()+1);
+  newGoal.deadline.setDate(newGoal.deadline.getDate() + 1);
   try {
     // Send a POST request to the server to add the new goal
     const response = await fetch('/dashboard/goals', {
@@ -189,12 +184,11 @@ async function deleteGoal(goalId) {
   // Perform the delete request to the server using the goalId
   try {
     const response = await fetch(`/api/goals/${goalId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     });
 
     if (response.ok) {
       // Handle the success response
-      console.log('Goal deleted successfully');
       location.reload();
       // Perform any additional actions, such as updating the UI
     } else {
@@ -210,8 +204,7 @@ document.addEventListener('click', async (event) => {
   if (event.target.matches('.delete-goal-btn')) {
     const goalId = event.target.dataset.goalId;
     deleteGoal(goalId);
-  }
-  else if (event.target.matches('.edit-goal-btn')) {
+  } else if (event.target.matches('.edit-goal-btn')) {
     const goalId = event.target.dataset.goalId;
     editGoal(goalId);
   }
@@ -220,8 +213,6 @@ document.addEventListener('click', async (event) => {
 async function fetchGoalData(goalId) {
   const response = await fetch(`/api/goals/${goalId}`);
   if (response.ok) {
-    console.log(response);
-    console.log(typeof response);
     const goalData = await response.json();
     const updatedGoalData = {
       ...goalData,
@@ -255,7 +246,7 @@ function createInpute(id, label, value) {
   const input = document.createElement('input');
   input.type = 'text';
   input.id = id;
-  input.value = value; 
+  input.value = value;
   const labelElement = document.createElement('label');
   labelElement.htmlFor = id;
   labelElement.textContent = label;
@@ -283,7 +274,6 @@ function createInpute(id, label, value) {
   return container;
 }
 
-
 function displayEditForm(goalData) {
   // Get the existing goal data
   const { id, goal_name, target_amount, deadline } = goalData;
@@ -292,14 +282,15 @@ function displayEditForm(goalData) {
   const form = document.createElement('form');
   form.id = 'editGoalForm';
   form.className = 'bg-white rounded p-4';
- 
+
   // Create and append the Goal Name input
   const goalNameLabel = document.createElement('label');
   goalNameLabel.textContent = 'Goal Name:';
   const goalNameInput = document.createElement('input');
   goalNameInput.type = 'text';
   goalNameInput.value = goal_name;
-  goalNameInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  goalNameInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(goalNameLabel);
   form.appendChild(goalNameInput);
 
@@ -309,7 +300,8 @@ function displayEditForm(goalData) {
   const targetAmountInput = document.createElement('input');
   targetAmountInput.type = 'text';
   targetAmountInput.value = target_amount;
-  targetAmountInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  targetAmountInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(targetAmountLabel);
   form.appendChild(targetAmountInput);
 
@@ -320,20 +312,23 @@ function displayEditForm(goalData) {
   deadlineInput.type = 'date';
   const formattedDeadline = formatDate(new Date(deadline));
   deadlineInput.value = formattedDeadline;
-  deadlineInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  deadlineInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(deadlineLabel);
   form.appendChild(deadlineInput);
 
   // Create the submit button
   const submitButton = document.createElement('button');
   submitButton.textContent = 'Update Goal';
-  submitButton.className = 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mr-2'; // Add `mr-2` for right margin
+  submitButton.className =
+    'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mr-2'; // Add `mr-2` for right margin
   form.appendChild(submitButton);
 
   // Create the cancel button
   const cancelButton = document.createElement('button');
   cancelButton.textContent = 'Cancel';
-  cancelButton.className = 'bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4'; // Adjust the class based on your desired styling
+  cancelButton.className =
+    'bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4'; // Adjust the class based on your desired styling
   form.appendChild(cancelButton);
 
   // Append form to the popup window
@@ -351,7 +346,7 @@ function displayEditForm(goalData) {
       target_amount: targetAmountInput.value,
       goal_name: goalNameInput.value,
     };
-    updatedGoalData.Deadline.setDate(updatedGoalData.Deadline.getDate()+1);
+    updatedGoalData.Deadline.setDate(updatedGoalData.Deadline.getDate() + 1);
     // Call a function to update the goal data on the server
     await updateGoal(id, updatedGoalData);
 
@@ -373,7 +368,6 @@ async function editGoal(goalId) {
 }
 
 function addBudgetForm() {
-  
   // Create the form element
   const form = document.createElement('form');
   form.id = 'addBudgetForm';
@@ -384,8 +378,9 @@ function addBudgetForm() {
   budgetNameLabel.textContent = 'Budget Name:';
   const budgetNameInput = document.createElement('input');
   budgetNameInput.type = 'text';
-  budgetNameInput.value = "";
-  budgetNameInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  budgetNameInput.value = '';
+  budgetNameInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(budgetNameLabel);
   form.appendChild(budgetNameInput);
 
@@ -394,7 +389,8 @@ function addBudgetForm() {
   startDateLabel.textContent = 'Start Date:';
   const startDateInput = document.createElement('input');
   startDateInput.type = 'date';
-  startDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  startDateInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(startDateLabel);
   form.appendChild(startDateInput);
 
@@ -403,30 +399,34 @@ function addBudgetForm() {
   endDateLabel.textContent = 'End Date:';
   const endDateInput = document.createElement('input');
   endDateInput.type = 'date';
-  endDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  endDateInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(endDateLabel);
   form.appendChild(endDateInput);
-  
+
   // Create and append the Amount input
   const amountLabel = document.createElement('label');
   amountLabel.textContent = 'Amount:';
   const amountInput = document.createElement('input');
   amountInput.type = 'text';
   amountInput.value = '';
-  amountInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  amountInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(amountLabel);
   form.appendChild(amountInput);
 
   // Create the submit button
   const submitButton = document.createElement('button');
   submitButton.textContent = 'Add Budget';
-  submitButton.className = 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4';
+  submitButton.className =
+    'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4';
   form.appendChild(submitButton);
 
   // Create the cancel button
   const cancelButton = document.createElement('button');
   cancelButton.textContent = 'Cancel';
-  cancelButton.className = 'bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4'; // Adjust the class based on your desired styling
+  cancelButton.className =
+    'bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4'; // Adjust the class based on your desired styling
   form.appendChild(cancelButton);
 
   // Append form to the popup window
@@ -446,23 +446,22 @@ function addBudgetForm() {
       amount: amountInput.value,
     };
     budgetData.start_date.setDate(budgetData.start_date.getDate() + 1);
-    budgetData.end_date.setDate(budgetData.end_date.getDate()+1);
+    budgetData.end_date.setDate(budgetData.end_date.getDate() + 1);
     // Call a function to update the goal data on the server
     await addBudget(budgetData);
 
     // Close the popup window
     popupWindow.classList.add('hidden');
   });
-   // Add event listener to the cancel button
-   cancelButton.addEventListener('click', (event) => {
+  // Add event listener to the cancel button
+  cancelButton.addEventListener('click', (event) => {
     event.preventDefault();
     // Hide the form
     popupWindow.classList.add('hidden');
   });
 }
 
-
-async function addBudget(budgetData){
+async function addBudget(budgetData) {
   try {
     const response = await fetch(`/api/budgets`, {
       method: 'POST',
@@ -481,28 +480,27 @@ async function addBudget(budgetData){
   }
 }
 
-async function deleteBudget(budgetID){
-    // Perform the delete request to the server using the goalId
-    try {
-      const response = await fetch(`/api/budgets/${budgetID}`, {
-        method: 'DELETE'
-      });
-  
-      if (response.ok) {
-        // Handle the success response
-        console.log('Goal deleted successfully');
-        location.reload();
-        // Perform any additional actions, such as updating the UI
-      } else {
-        // Handle the error response
-        console.error('Failed to delete goal');
-      }
-    } catch (error) {
-      console.error('Error deleting goal:', error);
-    }  
+async function deleteBudget(budgetID) {
+  // Perform the delete request to the server using the goalId
+  try {
+    const response = await fetch(`/api/budgets/${budgetID}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      // Handle the success response
+      location.reload();
+      // Perform any additional actions, such as updating the UI
+    } else {
+      // Handle the error response
+      console.error('Failed to delete goal');
+    }
+  } catch (error) {
+    console.error('Error deleting goal:', error);
+  }
 }
 
-async function updateBudget(budgetId, updatedBudgetData){
+async function updateBudget(budgetId, updatedBudgetData) {
   try {
     const response = await fetch(`/api/budgets/${budgetId}`, {
       method: 'PUT',
@@ -534,9 +532,9 @@ async function fetchBudgetData(budgetID) {
   }
 }
 
-async function editBudgetForm(budgetData){
+async function editBudgetForm(budgetData) {
   // Get the existing goal data
-  const { id, name, start_date, end_date ,amount  } = budgetData;
+  const { id, name, start_date, end_date, amount } = budgetData;
 
   // Create the form element
   const form = document.createElement('form');
@@ -549,32 +547,34 @@ async function editBudgetForm(budgetData){
   const budgetNameInput = document.createElement('input');
   budgetNameInput.type = 'text';
   budgetNameInput.value = name;
-  budgetNameInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  budgetNameInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(budgetNameLabel);
   form.appendChild(budgetNameInput);
 
   // Create and append the Deadline input
   const startDateLabel = document.createElement('label');
-startDateLabel.textContent = 'Start Date:';
-const startDateInput = document.createElement('input');
-startDateInput.type = 'date';
-const formattedStartDate = formatDate(new Date(start_date)); // Format the start_date value
-startDateInput.value = formattedStartDate;
-startDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
-form.appendChild(startDateLabel);
-form.appendChild(startDateInput);
+  startDateLabel.textContent = 'Start Date:';
+  const startDateInput = document.createElement('input');
+  startDateInput.type = 'date';
+  const formattedStartDate = formatDate(new Date(start_date)); // Format the start_date value
+  startDateInput.value = formattedStartDate;
+  startDateInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  form.appendChild(startDateLabel);
+  form.appendChild(startDateInput);
 
-
-   // Create and append the Deadline input
-   const endDateLabel = document.createElement('label');
-   endDateLabel.textContent = 'End Date:';
-   const endDateInput = document.createElement('input');
-   endDateInput.type = 'date';
-   const formattedEndDate = formatDate(new Date(end_date));
-   endDateInput.value = formattedEndDate;
-   endDateInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
-   form.appendChild(endDateLabel);
-   form.appendChild(endDateInput);
+  // Create and append the Deadline input
+  const endDateLabel = document.createElement('label');
+  endDateLabel.textContent = 'End Date:';
+  const endDateInput = document.createElement('input');
+  endDateInput.type = 'date';
+  const formattedEndDate = formatDate(new Date(end_date));
+  endDateInput.value = formattedEndDate;
+  endDateInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  form.appendChild(endDateLabel);
+  form.appendChild(endDateInput);
 
   // Create and append the Target Amount input
   const amountLabel = document.createElement('label');
@@ -582,20 +582,23 @@ form.appendChild(startDateInput);
   const amountInput = document.createElement('input');
   amountInput.type = 'text';
   amountInput.value = amount;
-  amountInput.className = 'border border-gray-300 rounded px-4 py-2 w-full mb-4';
+  amountInput.className =
+    'border border-gray-300 rounded px-4 py-2 w-full mb-4';
   form.appendChild(amountLabel);
   form.appendChild(amountInput);
 
   // Create the submit button
   const submitButton = document.createElement('button');
   submitButton.textContent = 'Update Goal';
-  submitButton.className = 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4';
+  submitButton.className =
+    'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4';
   form.appendChild(submitButton);
 
   // Create the cancel button
   const cancelButton = document.createElement('button');
   cancelButton.textContent = 'Cancel';
-  cancelButton.className = 'bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4'; // Adjust the class based on your desired styling
+  cancelButton.className =
+    'bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4'; // Adjust the class based on your desired styling
   form.appendChild(cancelButton);
 
   // Append form to the popup window
@@ -614,37 +617,36 @@ form.appendChild(startDateInput);
       end_date: new Date(endDateInput.value),
       amount: amountInput.value,
     };
-    updatedBudgetData.start_date.setDate(updatedBudgetData.start_date.getDate() + 1);
-    updatedBudgetData.end_date.setDate(updatedBudgetData.end_date.getDate()+1);
+    updatedBudgetData.start_date.setDate(
+      updatedBudgetData.start_date.getDate() + 1
+    );
+    updatedBudgetData.end_date.setDate(
+      updatedBudgetData.end_date.getDate() + 1
+    );
     // Call a function to update the goal data on the server
     await updateBudget(id, updatedBudgetData);
 
     // Close the popup window
     popupWindow.classList.add('hidden');
   });
-   // Add event listener to the cancel button
-   cancelButton.addEventListener('click', (event) => {
+  // Add event listener to the cancel button
+  cancelButton.addEventListener('click', (event) => {
     event.preventDefault();
     // Hide the form
     popupWindow.classList.add('hidden');
   });
 }
 
-
-async function editBudget(budgetID){
+async function editBudget(budgetID) {
   const budgetData = await fetchBudgetData(budgetID);
-  console.log('2 edit');
   editBudgetForm(budgetData);
-  console.log('3 edit');
 }
 
 document.addEventListener('click', async (event) => {
   if (event.target.matches('.delete-budget-btn')) {
-    console.log(event.target.dataset.budgetId);
     const budgetID = event.target.dataset.budgetId;
     deleteBudget(budgetID);
-  }
-  else if (event.target.matches('.edit-budget-btn')) {
+  } else if (event.target.matches('.edit-budget-btn')) {
     const budgetID = event.target.dataset.budgetId;
     editBudget(budgetID);
   }
@@ -652,5 +654,3 @@ document.addEventListener('click', async (event) => {
 
 // event lisnet on click add budget button
 addBudgetBtn.addEventListener('click', addBudgetForm);
-
-
