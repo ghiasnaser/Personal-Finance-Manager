@@ -130,15 +130,15 @@ router.use('/transactions', async (req, res) => {
     ],
   });
 
-  const transactions = user.items
-    .map((item) => {
-      return item.accounts.map((account) => {
-        return account.transactions.map((transaction) => {
-          return transaction.get({ plain: true });
+  const transactions = user?.items
+    ?.map((item) => {
+      return item?.accounts?.map((account) => {
+        return account?.transactions?.map((transaction) => {
+          return transaction?.get({ plain: true });
         });
       });
     })
-    .flat(2);
+    ?.flat(2);
 
   const ordered = transactions.sort((a, b) => a.date - b.date);
 
